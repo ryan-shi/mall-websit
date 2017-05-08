@@ -1,5 +1,12 @@
 *.class
 
+# for Mac OS X System Files
+.DS_Store
+Thumbs.db
+
+#eclipse
+*/target/*
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
