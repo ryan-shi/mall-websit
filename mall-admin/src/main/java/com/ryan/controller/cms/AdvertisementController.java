@@ -114,9 +114,10 @@ public class AdvertisementController {
 		}
 	}
 	
-	@PostMapping("/delete/{id}")
+	@GetMapping("/delete/{id}")
 	@ResponseBody
 	public String delete(@PathVariable Long id){
+		log.info("delete advert id:{}",id);
 		advertisementService.deleteByPrimaryKey(id);
 		return "1";
 	}

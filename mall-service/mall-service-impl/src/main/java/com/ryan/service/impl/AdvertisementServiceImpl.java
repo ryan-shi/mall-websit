@@ -46,7 +46,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 				if (!searchVal.equals("")) {
 					Predicate idP = criteriaBuilder.like(root.get("id").as(String.class), "%" + searchVal + "%");
 					Predicate titleP = criteriaBuilder.like(root.get("title"), "%" + searchVal + "%");
-					Predicate positionP = criteriaBuilder.like(root.get("position"), "%" + searchVal + "%");
+					Predicate positionP = criteriaBuilder.like(root.get("position").as(String.class), "%" + searchVal + "%");
 					Predicate timeP = criteriaBuilder.like(root.get("createTime").as(String.class),
 							"%" + searchVal + "%");
 					return criteriaBuilder.and(timeP, criteriaBuilder.or(positionP, criteriaBuilder.or(idP, titleP)));
