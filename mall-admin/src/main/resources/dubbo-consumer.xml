@@ -21,5 +21,5 @@
 	<dubbo:reference id="specOptionService" interface="com.ryan.service.SpecOptionService" />
 	<dubbo:reference id="productService" interface="com.ryan.service.ProductService" />
 	<dubbo:reference id="SKUService" interface="com.ryan.service.SKUService" />
-
+	<dubbo:reference id="AdvertisementService" interface="com.ryan.service.AdvertisementService" />
 </beans>

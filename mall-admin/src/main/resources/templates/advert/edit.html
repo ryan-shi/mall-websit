@@ -1,0 +1,44 @@
+<script th:src="@{/js/advert/edit.js}"></script>
+<div class="row" style="width: 500px;">
+	<div class="col-lg-12">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5>广告信息</h5>
+			</div>
+			<div class="ibox-content" style="padding-top: 35px;">
+				<form id="saveForm" method="post" class="form-horizontal">
+					<div class="row">
+						<div class="col-lg-12">
+							<input type="hidden" name="createTime" id="createTime" th:value="${advertisement.createTime}" />
+							<div class="form-group">
+								<label class="col-lg-3 control-label">商品ID</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" id="productId" name="productId" th:value="${advertisement.productDTO.id}" maxlength="16" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">标题</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" id="title" name="title" th:value="${advertisement.title}" maxlength="16" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">位置</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" id="position" name="position" th:value="${advertisement.position}" maxlength="16" />
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<div class="col-lg-offset-3 col-lg-9">
+									<button class="btn btn-sm btn-primary saveBtn" type="button">确定</button>
+									<button class="btn btn-sm btn-white" onclick="closeDialog()">返回</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

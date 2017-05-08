@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
-
+	
 	/**
 	 * 后台分页
 	 */
@@ -62,8 +62,8 @@ public class UserServiceImpl implements UserService {
 					Predicate emailP = criteriaBuilder.like(root.get("email"), "%" + searchVal + "%");
 					Predicate timeP = criteriaBuilder.like(root.get("createTime").as(String.class),
 							"%" + searchVal + "%");
-					return criteriaBuilder.and(backendTypeP, criteriaBuilder.and(backendTypeP,
-							criteriaBuilder.or(timeP, criteriaBuilder.or(emailP, criteriaBuilder.or(idP, usernameP)))));
+					return criteriaBuilder.and(backendTypeP,
+							criteriaBuilder.or(timeP, criteriaBuilder.or(emailP, criteriaBuilder.or(idP, usernameP))));
 				}
 				return criteriaBuilder.and(backendTypeP);
 			}

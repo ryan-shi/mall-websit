@@ -116,13 +116,18 @@
 							</li>
 						</ul>
 					</li>
-					<li>
+					<li
+						th:classappend="${(#strings.contains(#httpServletRequest.requestURI,'/advert/index'))? 'active' : ''}">
 						<a href="#">
 							<i class="fa fa-envelope"></i>
 							<span class="nav-label">内容管理</span>
 							<span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level collapse">
+							<li
+								th:classappend="${#strings.contains(#httpServletRequest.requestURI,'/advert/index') ? 'active' : ''}">
+								<a th:href="@{/advert/index}">广告管理</a>
+							</li>
 							<li>
 								<a href="mailbox.html">新手指引</a>
 							</li>

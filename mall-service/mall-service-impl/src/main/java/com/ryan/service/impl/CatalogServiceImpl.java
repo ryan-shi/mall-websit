@@ -13,7 +13,6 @@ import com.ryan.domain.Spec;
 import com.ryan.dto.CatalogDTO;
 import com.ryan.dto.SpecDTO;
 import com.ryan.repository.CatalogRepository;
-import com.ryan.repository.RoleRepository;
 import com.ryan.service.CatalogService;
 
 @Service
@@ -21,9 +20,6 @@ public class CatalogServiceImpl implements CatalogService {
 
 	@Autowired
 	CatalogRepository catalogRepository;
-
-	@Autowired
-	RoleRepository roleRepository;
 	
 	@Override
 	public List<CatalogDTO> findByParentId(Long parent) {
