@@ -1,0 +1,48 @@
+<div class="row" style="width: 500px;">
+	<div class="col-lg-12">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5>分类信息</h5>
+			</div>
+			<div class="ibox-content" style="padding-top: 35px;">
+				<form id="saveForm" method="post" class="form-horizontal">
+					<div class="row">
+						<input type="hidden" id="id" name="id" th:value="${catalog.id}">
+						<div class="col-lg-12">
+							<div class="form-group">
+								<label class="col-lg-3 control-label">名称</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" id="name" name="name" maxlength="16" th:value="${catalog.name}" readonly="readonly"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">描述</label>
+								<div class="col-lg-6">
+									<textarea class="form-control" id="description" name="description" rows="3" th:inline="text" readonly="readonly">[[${catalog.description}]]</textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">创建时间</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" id="createTime" name="createTime" maxlength="16" th:value="${#dates.format(catalog.createTime, 'yyyy-MM-dd HH:mm:ss')}" readonly="readonly"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">更新时间</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" id="updateTime" name="updateTime" maxlength="16" th:value="catalog.updateTime==null?'':${#dates.format(catalog.updateTime, 'yyyy-MM-dd HH:mm:ss')}" readonly="readonly"/>
+								</div>
+							</div>
+							<div class="hr-line-dashed" id="hr-line-dashed"></div>
+							<div class="form-group" id="returnDiv">
+								<div class="col-lg-offset-3 col-lg-9">
+									<button class="btn btn-sm btn-white" onclick="closeDialog()">返回</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

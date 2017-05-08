@@ -1,0 +1,75 @@
+<div class="row" style="width: 500px;">
+	<div class="col-lg-12">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5>用户信息</h5>
+			</div>
+			<div class="ibox-content" style="padding-top: 35px;">
+				<form id="saveForm" method="post" class="form-horizontal">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="form-group">
+								<label class="col-lg-3 control-label">用户名</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" id="username" name="username" maxlength="16"
+										th:value="${user.username}" readonly="readonly" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">性别</label>
+								<div class="col-lg-6">
+									<input class="form-control" name="sex" id="sex" th:value="${user.sex==0?'女':'男'}" readonly="readonly"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">部门</label>
+								<div class="col-lg-6">
+									<input class="form-control" name="departmentDTO" id="departmentDTO" th:value="${user.departmentDTO.name}" readonly="readonly"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">角色</label>
+								<div class="col-lg-6">
+									<select class="form-control" name="roles" id="roles" multiple="multiple" readonly>
+										<option th:each="role:${user.roleDTOs}" th:value="${role.id}"
+											th:text="${#strings.length(role.name)>20?#strings.substring(role.name,0,20)+'...':role.name}"></option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">账号状态</label>
+								<div class="col-lg-6">
+									<input class="form-control" name="enabled" id="enabled" th:value="${user.enabled?'正常':'禁用'}" readonly="readonly"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">邮箱</label>
+								<div class="col-lg-6">
+									<input class="form-control" id="email" name="email" th:value="${user.email}" readonly="readonly"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">创建时间</label>
+								<div class="col-lg-6">
+									<input class="form-control" id="createTime" name="createTime" th:value="${#dates.format(user.createTime, 'yyyy-MM-dd HH:mm:ss')}" readonly="readonly"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">更新时间</label>
+								<div class="col-lg-6">
+									<input class="form-control" id="updateTime" name="updateTime" th:value="${user.updateTime==null?'':#dates.format(user.updateTime, 'yyyy-MM-dd HH:mm:ss')}" readonly="readonly"/>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<div class="col-lg-offset-3 col-lg-9">
+									<button class="btn btn-sm btn-white" onclick="closeDialog()">返回</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

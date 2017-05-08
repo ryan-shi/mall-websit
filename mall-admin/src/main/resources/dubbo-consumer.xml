@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://code.alibabatech.com/schema/dubbo
+            http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="ryanshi-admin-consumer" />
+
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry protocol="zookeeper" address="139.129.45.34:2181" />
+
+	<dubbo:reference id="departmentService" interface="com.ryan.service.DepartmentService" />
+	<dubbo:reference id="resourceService" interface="com.ryan.service.ResourceService" />
+	<dubbo:reference id="roleService" interface="com.ryan.service.RoleService" />
+	<dubbo:reference id="userService" interface="com.ryan.service.UserService" />
+	<dubbo:reference id="catalogService" interface="com.ryan.service.CatalogService" />
+	<dubbo:reference id="specService" interface="com.ryan.service.SpecService" />
+	<dubbo:reference id="specOptionService" interface="com.ryan.service.SpecOptionService" />
+	<dubbo:reference id="productService" interface="com.ryan.service.ProductService" />
+	<dubbo:reference id="SKUService" interface="com.ryan.service.SKUService" />
+
+</beans>

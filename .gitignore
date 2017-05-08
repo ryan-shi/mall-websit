@@ -5,8 +5,11 @@
 Thumbs.db
 
 #eclipse
-*/target/*
-
+target
+.settings/
+.project
+.classpath
+.mvn
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 

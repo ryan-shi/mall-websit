@@ -1,0 +1,84 @@
+<script th:src="@{/js/user/new.js}"></script>
+<div class="row" style="width: 500px;">
+	<div class="col-lg-12">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5>用户信息</h5>
+			</div>
+			<div class="ibox-content" style="padding-top: 35px;">
+				<form id="saveForm" method="post" class="form-horizontal">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="form-group">
+								<label class="col-lg-3 control-label">用户名</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" id="username"
+										name="username" maxlength="16" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">性别</label>
+								<div class="col-lg-6">
+									<div class="radio radio-primary radio-inline">
+										<input type="radio" id="sexNan" value="1" name="sex" checked>
+										<label for="sexNan"> 男 </label>
+									</div>
+									<div class="radio radio-danger radio-inline">
+										<input type="radio" id="sexNv" value="0" name="sex">
+										<label for="sexNv"> 女 </label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">部门</label>
+								<div class="col-lg-6">
+									<select class="form-control" name="departmentDTOId" id="departmentDTOId" style="display: inline-block;">
+										<option value="">请选择</option>
+										<option th:each="department:${departments}"
+											th:value="${department.id}"
+											th:text="${#strings.length(department.name)>20?#strings.substring(department.name,0,20)+'...':department.name}"></option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">角色</label>
+								<div class="col-lg-6">
+									<select class="form-control" name="roleDTOIds" id="roleDTOIds" multiple="multiple" style="display: inline-block;">
+										<option th:each="role:${roles}" th:value="${role.id}"
+											th:text="${#strings.length(role.name)>20?#strings.substring(role.name,0,20)+'...':role.name}"></option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">账号状态</label>
+								<div class="col-lg-6">
+									<div class="radio radio-primary radio-inline">
+										<input type="radio" id="enabledOk" value="1" name="enabled" checked>
+										<label for="enabledOk"> 正常 </label>
+									</div>
+									<div class="radio radio-danger radio-inline">
+										<input type="radio" id="enabledNo" value="0" name="enabled">
+										<label for="enabledNo"> 禁用 </label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">邮箱</label>
+								<div class="col-lg-6">
+									<input class="form-control" id="email" name="email" />
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<div class="col-lg-offset-3 col-lg-9">
+									<button class="btn btn-sm btn-primary saveBtn" type="button">确定</button>
+									<button class="btn btn-sm btn-white" onclick="closeDialog()">返回</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

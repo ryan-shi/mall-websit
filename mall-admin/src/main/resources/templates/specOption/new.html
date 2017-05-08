@@ -1,0 +1,44 @@
+<script th:src="@{/js/specOption/new.js}"></script>
+<div class="row" style="width: 500px;">
+	<div class="col-lg-12">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5>规格选项信息</h5>
+			</div>
+			<div class="ibox-content" style="padding-top: 35px;">
+				<form id="saveForm" method="post" class="form-horizontal">
+					<input type="hidden" id="spec_id" name="specId">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="form-group">
+								<label class="col-lg-3 control-label">名称</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" id="name" name="name" maxlength="16" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">编码</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" id="code" name="code" maxlength="16" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">排序</label>
+								<div class="col-lg-6">
+									<textarea class="form-control" id="sort" name="sort" rows="3"></textarea>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<div class="col-lg-offset-3 col-lg-9">
+									<button class="btn btn-sm btn-primary saveBtn" type="button">确定</button>
+									<button class="btn btn-sm btn-white" onclick="closeDialogSpecOp()">返回</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-store"/>
+    <meta http-equiv="Expires" content="0" />
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet">
+    <link th:herf="@{/css/animate.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/plugins/iCheck/custom.css}" rel="stylesheet">
+    <title>登录</title>
+</head>
+<body class="gray-bg">
+
+    <div class="middle-box loginscreen animated fadeInDown">
+        <div> 
+        	<div class="text-center">
+        		<div>
+	                <h1 class="logo-name">IN+</h1>
+	            </div>
+	            <h3> 欢迎登录系统后台 </h3>
+	            <!-- <p>Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
+	            </p>
+	            <p>请登录</p> -->
+        	</div>
+	           
+            <form class="m-t" role="form" th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <input type="text" id="username" name="username" class="form-control" placeholder="用户名" required="required">
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" name="password" class="form-control" placeholder="密码" required="required">
+                </div>
+                <div class="form-group">	
+                    <label> <input type="checkbox" id="remember-me" name="remember-me" class="i-checks"><i></i> &nbsp;记住我 </label>
+                </div>
+                <div class="form-group">             	
+                	<button type="submit" class="btn btn-primary block full-width m-b">登录</button>
+                </div>
+                
+				<div class="text-center">
+					<a href="login.html#"><small>忘记密码?</small></a>
+				</div>
+                
+            </form>
+            <p class="m-t text-center"><small>商城后台系统 By RyanShi &copy; 2017</small> </p>
+        </div>
+    </div>
+
+    <script th:src="@{/js/jquery-2.1.1.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/plugins/iCheck/icheck.min.js}"></script>
+        <script>
+            $(document).ready(function () {
+                $('.i-checks').iCheck({
+                    checkboxClass: 'icheckbox_square-green',
+                    radioClass: 'iradio_square-green',
+                });
+            });
+        </script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>导航</title>
+</head>
+<body>
+	<div th:fragment="nav" th:remove="tag">
+		<nav class="navbar-default navbar-static-side" role="navigation">
+			<div class="sidebar-collapse">
+				<ul class="nav metismenu" id="side-menu">
+					<li class="nav-header">
+						<div class="dropdown profile-element">
+							<span>
+								<img alt="image" class="img-circle" id="nav_userHead"
+									th:src="${session.SPRING_SECURITY_CONTEXT.authentication.principal.avator}" width="48px"
+									height="48px" />
+							</span>
+							<a data-toggle="dropdown" class="dropdown-toggle" href="/">
+								<span class="clear">
+									<span class="block m-t-xs">
+										<strong class="font-bold" sec:authentication="name">游客</strong>
+									</span>
+									<span class="text-muted text-xs block">
+										操作
+										<b class="caret"></b>
+									</span>
+								</span>
+							</a>
+							<ul class="dropdown-menu animated fadeInRight m-t-xs">
+								<li>
+									<a th:href="@{/user/account}">个人资料</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="#" id="logout-nav">退出</a>
+								</li>
+							</ul>
+						</div>
+						<div class="logo-element">IN+</div>
+					</li>
+					<li
+						th:classappend="${(#strings.contains(#httpServletRequest.requestURI,'/department/index')||#strings.contains(#httpServletRequest.requestURI,'/resource/index')||#strings.contains(#httpServletRequest.requestURI,'/role/index') ||#strings.contains(#httpServletRequest.requestURI,'/user/index')||#strings.contains(#httpServletRequest.requestURI,'/user/account'))? 'active' : ''}">
+						<a href="#">
+							<i class="fa fa-gears"></i>
+							<span class="nav-label">系统管理</span>
+							<span class="fa arrow"></span>
+						</a>
+						<ul class="nav nav-second-level">
+							<li
+								th:classappend="${#strings.contains(#httpServletRequest.requestURI,'/department/index') ? 'active' : ''}">
+								<a th:href="@{/department/index}">部门管理</a>
+							</li>
+							<li
+								th:classappend="${#strings.contains(#httpServletRequest.requestURI,'/resource/index') ? 'active' : ''}">
+								<a th:href="@{/resource/index}">资源管理</a>
+							</li>
+							<li
+								th:classappend="${#strings.contains(#httpServletRequest.requestURI,'/role/index') ? 'active' : ''}">
+								<a th:href="@{/role/index}">角色管理</a>
+							</li>
+							<li
+								th:classappend="${#strings.contains(#httpServletRequest.requestURI,'/user/index') ? 'active' : ''}">
+								<a th:href="@{/user/index}">用户管理</a>
+							</li>
+							<li
+								th:classappend="${#strings.contains(#httpServletRequest.requestURI,'/user/account') ? 'active' : ''}">
+								<a th:href="@{/user/account}">账号管理</a>
+							</li>
+						</ul>
+					</li>
+					<li
+						th:classappend="${(#strings.contains(#httpServletRequest.requestURI,'/catalog/index')||#strings.contains(#httpServletRequest.requestURI,'/spec/index') ||#strings.contains(#httpServletRequest.requestURI,'/product/index')||#strings.contains(#httpServletRequest.requestURI,'/sku/index'))? 'active' : ''}">
+						<a href="#">
+							<i class="fa fa-bar-chart-o"></i>
+							<span class="nav-label">商品管理</span>
+							<span class="fa arrow"></span>
+						</a>
+						<ul class="nav nav-second-level collapse">
+							<li
+								th:classappend="${#strings.contains(#httpServletRequest.requestURI,'/catalog/index') ? 'active' : ''}">
+								<a th:href="@{/catalog/index}">分类管理</a>
+							</li>
+							<li
+								th:classappend="${#strings.contains(#httpServletRequest.requestURI,'/spec/index') ? 'active' : ''}">
+								<a th:href="@{/spec/index}">规格管理</a>
+							</li>
+							<li
+								th:classappend="${#strings.contains(#httpServletRequest.requestURI,'/product/index') ? 'active' : ''}">
+								<a th:href="@{/product/index}">商品管理</a>
+							</li>
+							<li
+								th:classappend="${#strings.contains(#httpServletRequest.requestURI,'/sku/index') ? 'active' : ''}">
+								<a th:href="@{/sku/index}">SKU管理</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-envelope"></i>
+							<span class="nav-label">订单管理</span>
+							<span class="fa arrow"></span>
+						</a>
+						<ul class="nav nav-second-level collapse">
+							<li>
+								<a href="mailbox.html">订单管理</a>
+							</li>
+							<li>
+								<a href="mail_detail.html">Email view</a>
+							</li>
+							<li>
+								<a href="mail_compose.html">Compose email</a>
+							</li>
+							<li>
+								<a href="email_template.html">Email templates</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-envelope"></i>
+							<span class="nav-label">内容管理</span>
+							<span class="fa arrow"></span>
+						</a>
+						<ul class="nav nav-second-level collapse">
+							<li>
+								<a href="mailbox.html">新手指引</a>
+							</li>
+							<li>
+								<a href="mail_detail.html">Email view</a>
+							</li>
+							<li>
+								<a href="mail_compose.html">Compose email</a>
+							</li>
+							<li>
+								<a href="email_template.html">Email templates</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+</body>
+</html>

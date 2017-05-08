@@ -1,0 +1,88 @@
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout/layout">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>账号管理</title>
+<script th:src="@{/js/user/account.js}"></script>
+</head>
+<body>
+	<div layout:fragment="breadcrumb">
+		<ol class="breadcrumb">
+			<li>
+				<a href="/">首页</a>
+			</li>
+			<li class="active">
+				<strong>账号管理</strong>
+			</li>
+		</ol>
+	</div>
+	<div layout:fragment="content">
+		<div class="wrapper wrapper-content animated fadeInRight">
+			<div class="row">
+				<div class="col-lg-4">
+					<form id="uploadForm">
+						<input type="hidden" name="id" id="id" th:value="${user.id}" />
+						<div class="contact-box center-version">
+							<div class="text-center">
+								<img alt="image" style="margin-top: 20px;margin-bottom: 15px;" class="img-circle m-t-xs" th:src="${user.avator}" id="headImage">
+								<div class="m-t-xs font-bold" style="margin-bottom: 10px;">
+									<span th:each="role:${user.roleDTOs}" th:text="${role.description}"></span>
+								</div>
+							</div>
+							<div class="contact-box-footer">
+								<div class="m-t-xs btn-group">
+									<a class="btn btn-xs btn-white">
+										<label title="Upload image file" for="inputImage" class="fa fa-upload">
+											<input type="file" accept="image/*" name="file" id="inputImage" class="hide">
+											上传新头像
+										</label>
+									</a>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="col-lg-7">
+					<div class="ibox">
+						<div class="ibox-content">
+							<form id="saveForm" action="form_wizard.html#" class="wizard-big">
+								<input type="hidden" name="id" id="id" th:value="${user.id}" />
+								<fieldset>
+									<div class="row">
+										<div class="col-lg-offset-1 col-lg-6">
+											<div class="form-group">
+												<label>用户名</label>
+												<input id="username" name="username" type="text" class="form-control required"
+													th:value="${user.username}">
+											</div>
+											<div class="form-group">
+												<label>原密码</label>
+												<input id="password" name="password" type="password" class="form-control required">
+											</div>
+											<div class="form-group">
+												<label>新密码</label>
+												<input id="newpassword" name="newpassword" type="password" class="form-control required">
+											</div>
+											<div class="form-group">
+												<label>确认密码</label>
+												<input id="newpasswdcf" name="newpasswdcf" type="password" class="form-control required">
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<div class="col-lg-3 col-lg-offset-1">
+												<button class="btn btn-sm btn-primary saveBtn" type="button">保存</button>
+											</div>
+										</div>
+									</div>
+								</fieldset>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

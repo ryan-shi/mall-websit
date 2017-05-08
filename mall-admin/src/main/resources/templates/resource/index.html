@@ -1,0 +1,69 @@
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout/layout">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>资源管理</title>
+<link th:href="@{/css/plugins/dataTables/datatables.min.css}" rel="stylesheet">
+<link th:href="@{/js/plugins/artDialog/default.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/js/plugins/jsTree/themes/default/style.min.css}" rel="stylesheet" type="text/css" />
+<style type="text/css">
+input[type="text"],
+input[type="password"] {
+    display: inline-block;
+}
+
+table {
+	white-space: nowrap;
+}
+
+.remove {
+	display: none;
+}
+</style>
+<script th:src="@{/js/plugins/My97DatePicker/WdatePicker.js}"></script>
+<script th:src="@{/js/plugins/artDialog/artDialog.js}"></script>
+<script th:src="@{/js/plugins/jsTree/jstree.min.js}"></script>
+<script th:src="@{/js/resource/index.js}"></script>
+</head>
+<body>
+	<div layout:fragment="breadcrumb">
+		<ol class="breadcrumb">
+			<li>
+				<a href="/">首页</a>
+			</li>
+			<li class="active">
+				<strong>资源管理</strong>
+			</li>
+		</ol>
+	</div>
+	<div layout:fragment="content">
+		<div class="wrapper wrapper-content animated fadeInRight">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="ibox float-e-margins">
+						<div class="ibox-title">资源树</div>
+						<div class="ibox-content">
+							<div id="resource_tree"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-9">
+					<div class="ibox float-e-margins">
+						<div class="ibox-title">
+							资源详情
+							<button class="btn btn-success btn-xs pull-right" onclick="create()"><i class="fa fa-plus"></i>新增</button>
+						</div>
+						<div class="ibox-content">
+							<div id="resource_table_view" class="table-responsive">
+								<table class="table table-striped table-bordered table-hover" id="resource_tb">
+								</table>
+							</div>
+							<div class="row form-horizontal" id="resource_detail_view"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

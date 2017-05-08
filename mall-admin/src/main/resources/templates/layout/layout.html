@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta http-equiv="Cache-Control" content="no-store" />
+<meta http-equiv="Expires" content="0" />
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE">商城后台管理系统</title>
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{/css/font-awesome.min.css}" rel="stylesheet">
+<link th:herf="@{/css/animate.css}" rel="stylesheet">
+<link th:href="@{/css/style.css}" rel="stylesheet">
+<link th:href="@{/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css}" rel="stylesheet">
+<!-- Mainly scripts -->
+<script th:src="@{/js/jquery-2.1.1.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+
+<!-- Custom and plugin javascript -->
+<script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/inspinia.js}"></script>
+<script th:src="@{/js/plugins/pace/pace.min.js}"></script>
+<script th:src="@{/js/plugins/dataTables/datatables.min.js}"></script>
+<script th:src="@{/js/plugins/dataTables/ellipsis.js}"></script>
+<script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+</head>
+<body>
+	<div id="wrapper">
+		<div th:replace="layout/partials/nav :: nav"></div>
+		<div id="page-wrapper" class="gray-bg dashbard-1">
+			<div class="row border-bottom">
+				<nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+					<div class="navbar-header">
+						<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#">
+							<i class="fa fa-bars"></i>
+						</a>
+					</div>
+					<ul class="nav navbar-top-links navbar-right">
+						<li>
+							<a href="#" id="logout-top">
+								<i class="fa fa-sign-out"></i>
+								退出
+							</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+
+			<div class="row wrapper border-bottom white-bg dashboard-header">
+				<div class="col-lg-10">
+					<div layout:fragment="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="active">
+								<strong>首页</strong>
+							</li>
+						</ol>
+					</div>
+				</div>
+				<div class="col-lg-2"></div>
+			</div>
+			<div layout:fragment="content">这里是内容</div>
+			<div th:replace="layout/partials/footer :: footer"></div>
+		</div>
+	</div>
+	<form th:action="@{/logout}" method="post" id="logoutform"></form>
+	<script type="text/javascript">
+		$(function() {
+			$("#logout-top,#logout-nav").click(function(event) {
+				event.preventDefault();
+				if (confirm('您确定退出吗？')) {
+					$("#logoutform").submit();
+				}
+			});
+		});
+	</script>
+</body>
+</html>
