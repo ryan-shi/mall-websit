@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta http-equiv="Cache-Control" content="no-store" />
+<meta http-equiv="Expires" content="0" />
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE">非凡商城</title>
+<link th:href="@{/css/base.min.css}" rel="stylesheet">
+<link th:href="@{/css/index.min.css}" rel="stylesheet">
+<link th:href="@{/css/carousel.css}" rel="stylesheet">
+<style>
+.site-header .header-nav {
+	width: 600px;
+}
+
+.site-header .header-search {
+	float: left;
+}
+
+.site-header .search-text {
+	width: 450px;
+}
+
+.site-header .nav-list {
+	width: 350px;
+}
+</style>
+<!-- Mainly scripts -->
+<script th:src="@{/js/jquery-2.1.1.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<div class="site-topbar">
+		<div class="container">
+			<div class="topbar-nav">
+				<a rel="nofollow" th:href="@{/}">非凡商城</a>
+				<span class="sep">|</span>
+				<a rel="nofollow" href="http://static.mi.com/feedback/" target="_blank">问题反馈</a>
+			</div>
+			<div class="topbar-cart" id="J_miniCartTrigger">
+				<a rel="nofollow" class="cart-mini" id="J_miniCartBtn" href="http://static.mi.com/cart/">
+					<i class="iconfont"></i>
+					购物车
+					<span class="cart-mini-num J_cartNum">（0）</span>
+				</a>
+				<div class="cart-menu" id="J_miniCartMenu" style="display: none;">
+					<div class="loading">
+						<div class="loader"></div>
+					</div>
+				</div>
+			</div>
+			<div class="topbar-info" id="J_userInfo">
+				<a rel="nofollow" class="link"
+					href="http://order.mi.com/site/login?redirectUrl=http://www.mi.com/index.html">登录</a>
+				<span class="sep">|</span>
+				<a rel="nofollow" class="link" href="https://account.xiaomi.com/pass/register">注册</a>
+				<span class="sep">|</span>
+				<span class="message">
+					<a rel="nofollow" href="http://order.mi.com/message/list">
+						消息通知
+						<i class="J_miMessageTotal"></i>
+					</a>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div layout:fragment="content">这里是内容</div>
+	<div th:replace="layout/partials/footer :: footer"></div>
+	<form th:action="@{/logout}" method="post" id="logoutform"></form>
+	<script type="text/javascript">
+		$(function() {
+			$("#logout-top,#logout-nav").click(function(event) {
+				event.preventDefault();
+				if (confirm('您确定退出吗？')) {
+					$("#logoutform").submit();
+				}
+			});
+		});
+	</script>
+</body>
+</html>
