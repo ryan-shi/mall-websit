@@ -256,3 +256,18 @@
 .air-doodle .doodle-state { display: block; font-size: 14px; color: #83c44e }
 .air-doodle .doodle-info .city, .air-doodle .doodle-info .pm { display: block }
 .air-doodle .doodle-info .pm { font-size: 10px }
+.site-header .header-nav {
+	width: 600px;
+}
+
+.site-header .header-search {
+	float: left;
+}
+
+.site-header .search-text {
+	width: 450px;
+}
+
+.site-header .nav-list {
+	width: 350px;
+}

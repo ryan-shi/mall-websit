@@ -13,28 +13,11 @@
 <meta name="_csrf_header" th:content="${_csrf.headerName}" />
 <title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE">非凡商城</title>
 <link th:href="@{/css/base.min.css}" rel="stylesheet">
-<link th:href="@{/css/index.min.css}" rel="stylesheet">
-<link th:href="@{/css/carousel.css}" rel="stylesheet">
-<style>
-.site-header .header-nav {
-	width: 600px;
-}
-
-.site-header .header-search {
-	float: left;
-}
-
-.site-header .search-text {
-	width: 450px;
-}
-
-.site-header .nav-list {
-	width: 350px;
-}
-</style>
 <!-- Mainly scripts -->
 <script th:src="@{/js/jquery-2.1.1.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
+
+<script th:src="@{/js/common.js}"></script>
 </head>
 <body>
 	<div class="site-topbar">
@@ -57,10 +40,33 @@
 				</div>
 			</div>
 			<div class="topbar-info" id="J_userInfo">
-				<a rel="nofollow" class="link"
-					href="http://order.mi.com/site/login?redirectUrl=http://www.mi.com/index.html">登录</a>
-				<span class="sep">|</span>
-				<a rel="nofollow" class="link" href="https://account.xiaomi.com/pass/register">注册</a>
+				<a rel="nofollow" class="link" th:href="@{/login}" sec:authorize="!isAuthenticated()">登录</a>
+				<span class="sep" sec:authorize="!isAuthenticated()">|</span>
+				<a rel="nofollow" class="link" href="@{/register}" sec:authorize="!isAuthenticated()">注册</a>
+
+				<span class="user" sec:authorize="isAuthenticated()">
+					<a rel="nofollow" class="user-name" href="http://my.mi.com/portal" target="_blank">
+						<span class="name" sec:authentication="name">游客</span>
+						<i class="iconfont"></i>
+					</a>
+					<ul class="user-menu">
+						<li>
+							<a rel="nofollow" href="http://my.mi.com/portal" target="_blank">个人中心</a>
+						</li>
+						<li>
+							<a rel="nofollow" href="http://order.mi.com/user/comment" target="_blank">评价晒单</a>
+						</li>
+						<li>
+							<a rel="nofollow" href="http://order.mi.com/user/favorite" target="_blank">我的喜欢</a>
+						</li>
+						<li>
+							<a rel="nofollow" href="http://account.xiaomi.com/" target="_blank">小米账户</a>
+						</li>
+						<li>
+							<a rel="nofollow" href="#" id="logout-top">退出登录</a>
+						</li>
+					</ul>
+				</span>
 				<span class="sep">|</span>
 				<span class="message">
 					<a rel="nofollow" href="http://order.mi.com/message/list">
@@ -68,6 +74,9 @@
 						<i class="J_miMessageTotal"></i>
 					</a>
 				</span>
+				<span class="sep" sec:authorize="isAuthenticated()">|</span>
+				<a rel="nofollow" class="link link-order" href="http://static.mi.com/order/" target="_blank"
+					sec:authorize="isAuthenticated()">我的订单</a>
 			</div>
 		</div>
 	</div>
@@ -82,6 +91,16 @@
 					$("#logoutform").submit();
 				}
 			});
+
+			$(".user").mouseenter(function() {
+				$(this).addClass('user-active');
+				$(".user .user-menu").css("display", "block");
+			});
+			$(".user").mouseleave(function(event) {
+				$(this).removeClass('user-active');
+				$(".user .user-menu").css("display", "none");
+			});
+
 		});
 	</script>
 </body>
