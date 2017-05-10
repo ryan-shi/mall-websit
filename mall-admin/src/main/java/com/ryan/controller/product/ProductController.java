@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ryan.dto.CatalogDTO;
 import com.ryan.dto.ProductDTO;
@@ -24,6 +27,7 @@ import com.ryan.dto.SpecDTO;
 import com.ryan.service.CatalogService;
 import com.ryan.service.ProductService;
 import com.ryan.service.SpecService;
+import com.ryan.utils.FastdfsClient;
 
 @Controller
 @RequestMapping("/product")
@@ -32,12 +36,16 @@ public class ProductController {
 	private static final Logger log = LoggerFactory.getLogger(ProductController.class);
 	
 	@Autowired
+	private Environment env;
+	@Autowired
 	ProductService productService;
 	@Autowired
 	private CatalogService catalogService;
 	@Autowired
 	private SpecService specService;
-
+	@Autowired
+	FastdfsClient fastdfsClient;
+	
 	@GetMapping("/index")
 	public String index(){
 		return "product/index";
@@ -80,13 +88,23 @@ public class ProductController {
 
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	@ResponseBody
-	public String save(ProductDTO productDTO,Long catalogId) throws Exception {
+	public String save(ProductDTO productDTO,Long catalogId,@RequestParam("pictureFile") MultipartFile pictureFile) throws Exception {
 		CatalogDTO catalogDTO=catalogService.findByPrimaryKey(catalogId);
+		log.info("pictureFile:{}",pictureFile.getOriginalFilename());
 		productDTO.setCatalogDTO(catalogDTO);
 		productDTO.setCreateTime(new Date());
-		productService.save(productDTO);
-		log.info("新增->ID=" + productDTO.getId());
-		return "1";
+		try {
+			String fileName = fastdfsClient.uploadFile(pictureFile);
+			log.info("fileName:{}", fileName);
+			productDTO.setPicture(fileName);
+			productService.save(productDTO);
+			log.info("新增->ID=" + productDTO.getId());
+			return "1";
+		} catch (Exception e) {
+			log.info("上传出错！");
+			e.printStackTrace();
+			return "2";
+		}
 	}
 	
 	@RequestMapping(value = "/{id}")
@@ -101,19 +119,43 @@ public class ProductController {
 		List<CatalogDTO> catalogDTOs=catalogService.findByHasChildren(false);
 		model.addAttribute("catalogs", catalogDTOs);
 		ProductDTO productDTO = productService.findByPrimaryKey(id);
+		String oldPicUrl=productDTO.getPicture();
+		model.addAttribute("oldPicture", oldPicUrl);
+		String fileUrlPrefix = env.getProperty("file.path.prefix");
+		productDTO.setPicture(fileUrlPrefix+oldPicUrl);
 		model.addAttribute("product", productDTO);
 		return "product/edit";
 	}
 
 	@PostMapping("/update")
 	@ResponseBody
-	public String update(ProductDTO productDTO,Long catalogId) {
+	public String update(ProductDTO productDTO,Long catalogId,@RequestParam("pictureFile") MultipartFile pictureFile,String oldPicture) {
 		CatalogDTO catalogDTO=catalogService.findByPrimaryKey(catalogId);
 		productDTO.setCatalogDTO(catalogDTO);
 		productDTO.setUpdateTime(new Date());
-		productService.save(productDTO);
-		log.info("更新id：{}", productDTO.getId());
-		return "1";
+		String picture=productDTO.getPicture();
+		log.info("pic: {}",picture);
+		log.info("oldPicUrl:{}",oldPicture);
+		if(picture.equals("")){
+			try {
+				fastdfsClient.deleteFile(oldPicture);
+				String fileName = fastdfsClient.uploadFile(pictureFile);
+				log.info("fileName:{}", fileName);
+				productDTO.setPicture(fileName);
+				productService.save(productDTO);
+				log.info("新增->ID=" + productDTO.getId());
+				return "1";
+			} catch (Exception e) {
+				log.info("上传出错！");
+				e.printStackTrace();
+				return "2";
+			}
+		}else{
+			productDTO.setPicture(oldPicture);
+			productService.save(productDTO);
+			log.info("新增->ID=" + productDTO.getId());
+			return "1";
+		}
 	}
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)

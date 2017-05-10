@@ -16,6 +16,12 @@
 								</div>
 							</div>
 							<div class="form-group">
+								<label class="col-lg-3 control-label">标题</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" id="title" name="title" maxlength="30" />
+								</div>
+							</div>
+							<div class="form-group">
 								<label class="col-lg-3 control-label">编码</label>
 								<div class="col-lg-6">
 									<input class="form-control" type="text" id="code" name="code" maxlength="16" />
@@ -34,6 +40,51 @@
 										<option th:each="catalog:${catalogs}" th:value="${catalog.id}"
 											th:text="${catalog.name}"></option>						
 									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">图片</label>
+								<div class="col-lg-6">
+									<img alt="image" id="headImage" style="display: none; max-width: 300px;">
+									<input type="file" accept="image/*" name="pictureFile" id="product_picture">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">单位</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" id="unit" name="unit" maxlength="16" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">检索词</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" id="searchWord" name="searchWord" maxlength="16" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">新品</label>
+								<div class="col-lg-6">
+									<div class="radio radio-primary radio-inline">
+										<input type="radio" id="newProductY" value="1" name="newProduct">
+										<label for="newProductY"> 是 </label>
+									</div>
+									<div class="radio radio-danger radio-inline">
+										<input type="radio" id="newProductN" value="0" name="newProduct" checked>
+										<label for="newProductN"> 否 </label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">特价</label>
+								<div class="col-lg-6">
+									<div class="radio radio-primary radio-inline">
+										<input type="radio" id="saleProductY" value="1" name="saleProduct">
+										<label for="saleProductY"> 是 </label>
+									</div>
+									<div class="radio radio-danger radio-inline">
+										<input type="radio" id="saleProductN" value="0" name="saleProduct" checked>
+										<label for="saleProductN"> 否 </label>
+									</div>
 								</div>
 							</div>
 							<div class="form-group">

@@ -94,6 +94,30 @@ $(function() {
 									orderable : false
 								},
 								{
+									title : "是否新品",
+									data : "newProduct",
+									render : function(data, type, row, meta) {
+										if (data)
+											return "新品";
+										else
+											return "非新品";
+									}
+								},
+								{
+									title : "是否特价",
+									data : "saleProduct",
+									render : function(data, type, row, meta) {
+										if (data)
+											return "特价";
+										else
+											return "非特价";
+									}
+								},
+								{
+									title : "浏览数",
+									data : "viewCount",
+								},
+								{
 									title : "商品销量",
 									data : "sellCount",
 								},
@@ -114,11 +138,10 @@ $(function() {
 									data : "null",
 									render : function(data, type, row, meta) {
 										return '<button class="btn btn-default btn-xs fa fa-cog" onclick="spec_choice('
-										+ row.id
-										+ ')" ></button>';
+												+ row.id + ')" ></button>';
 									},
 									width : "40px",
-									className:"td-center",
+									className : "td-center",
 									orderable : false
 								},
 								{
@@ -233,7 +256,7 @@ function del(id) {
 	});
 };
 
-function spec_choice(id){
+function spec_choice(id) {
 	$.get("./specChoice/" + id, {
 		ts : new Date().getTime()
 	}, function(data) {

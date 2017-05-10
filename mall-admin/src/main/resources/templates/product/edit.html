@@ -19,6 +19,12 @@
 								</div>
 							</div>
 							<div class="form-group">
+								<label class="col-lg-3 control-label">标题</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" th:value="${product.title}" id="title" name="title" maxlength="30" />
+								</div>
+							</div>
+							<div class="form-group">
 								<label class="col-lg-3 control-label">编码</label>
 								<div class="col-lg-6">
 									<input class="form-control" type="text" id="code" name="code" maxlength="16" th:value="${product.code}"/>
@@ -41,6 +47,71 @@
 								</div>
 							</div>
 							<div class="form-group">
+								<label class="col-lg-3 control-label">图片</label>
+								<div class="col-lg-6">
+									<input type="hidden" id="picture" name="picture" th:value="${product.picture}">
+									<input type="hidden" id="oldPicture" name="oldPicture" th:value="${oldPicture}">
+									<img alt="image" id="headImage" th:src="${product.picture}" style="max-width: 300px;">
+									<input type="file" accept="image/*" name="pictureFile" id="product_picture">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">单位</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" th:value="${product.unit}"  id="unit" name="unit" maxlength="16" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">浏览数</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" th:value="${product.viewCount}"  id="viewCount" name="viewCount" maxlength="16" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">评论数</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" th:value="${product.commentCount}"  id="commentCount" name="commentCount" maxlength="16" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">销量</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" th:value="${product.sellCount}"  id="sellCount" name="sellCount" maxlength="16" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">检索词</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" th:value="${product.searchWord}" id="searchWord" name="searchWord" maxlength="16" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">新品</label>
+								<div class="col-lg-6">
+									<div class="radio radio-primary radio-inline">
+										<input type="radio" id="newProductY" value="1" name="newProduct" th:checked="${product.newProduct}">
+										<label for="newProductY"> 是 </label>
+									</div>
+									<div class="radio radio-danger radio-inline">
+										<input type="radio" id="newProductN" value="0" name="newProduct" th:checked="${!product.newProduct}">
+										<label for="newProductN"> 否 </label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">特价</label>
+								<div class="col-lg-6">
+									<div class="radio radio-primary radio-inline">
+										<input type="radio" id="saleProductY" value="1" name="saleProduct" th:checked="${product.saleProduct}">
+										<label for="saleProductY"> 是 </label>
+									</div>
+									<div class="radio radio-danger radio-inline">
+										<input type="radio" id="saleProductN" value="0" name="saleProduct" th:checked="${!product.saleProduct}">
+										<label for="saleProductN"> 否 </label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
 								<label class="col-lg-3 control-label">状态</label>
 								<div class="col-lg-6">
 									<select class="form-control" name="status" id="status" style="display: inline-block;">
@@ -50,20 +121,6 @@
 									</select>
 								</div>
 							</div>
-							<!-- <div class="form-group">
-								<label class="col-lg-3 control-label">创建时间</label>
-								<div class="col-lg-6">
-									<input class="form-control" type="text" th:value="${product.createTime}" id="createTime"
-										name="createTime" readonly="readonly" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-lg-3 control-label">更新时间</label>
-								<div class="col-lg-6">
-									<input class="form-control" type="text" th:value="${product.updateTime}" id="updateTime"
-										name="updateTime" readonly="readonly" />
-								</div>
-							</div> -->
 							<div class="hr-line-dashed"></div>
 							<div class="form-group">
 								<div class="col-lg-offset-3 col-lg-9">
