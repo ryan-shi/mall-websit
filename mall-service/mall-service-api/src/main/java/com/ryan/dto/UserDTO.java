@@ -21,6 +21,8 @@ public class UserDTO implements Serializable {
 	private boolean accountNonLocked = true;
 	private boolean credentialsNonExpired = true;
 
+	private Integer type;
+	
 	private DepartmentDTO departmentDTO;
 
 	private Set<RoleDTO> roleDTOs;
@@ -126,6 +128,14 @@ public class UserDTO implements Serializable {
 	}
 	
 	
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
 	public DepartmentDTO getDepartmentDTO() {
 		return departmentDTO;
 	}

@@ -1,46 +1,120 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="pragma" content="no-cache" />
-    <meta http-equiv="Cache-Control" content="no-cache" />
-    <meta http-equiv="Cache-Control" content="no-store"/>
-    <meta http-equiv="Expires" content="0" />
-    <title>登录</title>
-</head>
-<body class="gray-bg">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description" content="登录">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
+<title>帐号 - 登录</title>
+<style>
+/* .h_logo {//到时候替换成自己对应的图
+	width: 200px;
+	height: 98px;
+	background: url(/img/login/mistore_logo.png) no-repeat;
+} */
 
-    <div class="middle-box loginscreen animated fadeInDown">
-        <div> 
-        	<div class="text-center">
-        		<div>
-	                <h1 class="logo-name">IN+</h1>
-	            </div>
-	            <h3> 欢迎登录系统前台 </h3>
-        	</div>
-	           
-            <form class="m-t" role="form" th:action="@{/login}" method="post">
-                <div class="form-group">
-                    <input type="text" id="username" name="username" class="form-control" placeholder="用户名" required="required">
-                </div>
-                <div class="form-group">
-                    <input type="password" id="password" name="password" class="form-control" placeholder="密码" required="required">
-                </div>
-                <div class="form-group">	
-                    <label> <input type="checkbox" id="remember-me" name="remember-me" class="i-checks"><i></i> &nbsp;记住我 </label>
-                </div>
-                <div class="form-group">             	
-                	<button type="submit" class="btn btn-primary block full-width m-b">登录</button>
-                </div>
-                
-				<div class="text-center">
-					<a href="login.html#"><small>忘记密码?</small></a>
+/* .login_banner {
+	height: 588px;
+	background: url(/img/login/banner.jpg) no-repeat top center;
+	position: relative;
+} */
+</style>
+</head>
+<body class="zh_CN win_banner_mistore">
+	<div class="wrapper">
+		<!--bg_banner_start-->
+		<div class="h_panel">
+			<div class="h_logo"></div>
+		</div>
+		<div class="te login_banner_panel">
+			<!-- 底部定位的bg -->
+			<div class="lbnr"></div>
+			<div class="rbnr"></div>
+			<div class="login_banner"></div>
+		</div>
+		<!--bg_banner_end-->
+		<div class="wrap">
+			<div class="layout_panel">
+				<div class="layout" id="layout">
+					<!--表单输入登录-->
+					<div class="mainbox" id="login-main">
+						<div class="nav_tabs_panel">
+							<div id="nav-tabs" class="nav_tabs">
+								<a class="navtab-link now" href="javascript:void(0);" data-tab="pwd">帐号登录</a>
+								<span class="line"></span>
+								<a class="navtab-link" href="javascript:void(0);" data-tab="qr">扫码登录</a>
+							</div>
+						</div>
+						<!-- tab e -->
+						<!-- tab con s -->
+						<div class="tabs-con tabs_con now" data-con="pwd">
+							<div>
+								<div class="login_area">
+									<form th:action="@{/login}" method="POST" id="login-main-form">
+										<div class="loginbox c_b">
+											<!-- 输入框 -->
+											<div class="lgn_inputbg c_b">
+												<label id="region-code" class="labelbox login_user c_b" for="">
+													<input class="item_account" autocomplete="off" type="text" name="username" id="username"
+														placeholder="邮箱/帐号">
+												</label>
+												<label class="labelbox pwd_panel c_b">
+													<input type="password" placeholder="密码" autocomplete="off" name="password" id="password">
+												</label>
+											</div>
+											<!-- <div class="lgncode c_b" id="captcha"></div> -->
+											<!-- 错误信息 -->
+											<div class="err_tip" id="error-outcon">
+												<div class="dis_box">
+													<em class="icon_error"></em>
+													<span class="error-con"></span>
+												</div>
+											</div>
+											<div class="btns_bg">
+												<input class="btnadpt btn_orange" id="login-button" type="submit" value="立即登录">
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+							<div class="n_links_area" id="custom_display_64">
+								<a class="outer-link" th:href="@{/user/register}">注册帐号</a>
+								<span>|</span>
+								<a class="outer-link">忘记密码？</a>
+							</div>
+						</div>
+					</div>
 				</div>
-                
-            </form>
-            <p class="m-t text-center"><small>商城后台系统 By RyanShi &copy; 2017</small> </p>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
+
+	<div id="custom_display_4" class="n-footer">
+		<div class="nf-link-area clearfix">
+			<ul class="lang-select-list">
+				<li>
+					<a href="javascript:void(0)" data-lang="zh_CN" class="lang-select-li current">简体</a>
+					|
+				</li>
+				<li>
+					<a
+						href="https://account.xiaomi.com/pass/serviceLogin?callback=http%3A%2F%2Forder.mi.com%2Flogin%2Fcallback%3Ffollowup%3Dhttp%253A%252F%252Fwww.mi.com%252Findex.html%26sign%3DNDRhYjQwYmNlZTg2ZGJhZjI0MTJjY2ZiMTNiZWExODMwYjkwNzg2ZQ%2C%2C&amp;sid=mi_eshop&amp;_bannerBiz=mistore&amp;_qrsize=180&amp;_locale=zh_TW"
+						data-lang="zh_TW" class="lang-select-li">繁体</a>
+					|
+				</li>
+				<li>
+					<a
+						href="https://account.xiaomi.com/pass/serviceLogin?callback=http%3A%2F%2Forder.mi.com%2Flogin%2Fcallback%3Ffollowup%3Dhttp%253A%252F%252Fwww.mi.com%252Findex.html%26sign%3DNDRhYjQwYmNlZTg2ZGJhZjI0MTJjY2ZiMTNiZWExODMwYjkwNzg2ZQ%2C%2C&amp;sid=mi_eshop&amp;_bannerBiz=mistore&amp;_qrsize=180&amp;_locale=en"
+						data-lang="en" class="lang-select-li">English</a>
+					|
+				</li>
+				<li>
+					<a href="http://static.account.xiaomi.com/html/faq/faqList.html" target="_blank">常见问题</a>
+				</li>
+			</ul>
+		</div>
+	</div>
 </body>
 </html>

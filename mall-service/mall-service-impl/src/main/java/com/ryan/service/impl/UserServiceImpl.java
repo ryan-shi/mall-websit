@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	/**
 	 * 后台分页
 	 */
@@ -90,6 +90,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public UserDTO findByEmail(String email, Integer type) {
+		User user = userRepository.findByEmailAndType(email, type);
+		UserDTO userDTO = userToUserDTO(user);
+		log.info("userDTO: {}", userDTO);
+		return userDTO;
+	}
+
+	@Override
 	public UserDTO findByPrimaryKey(Long id) {
 		User user = userRepository.findOne(id);
 		UserDTO userDTO = userToUserDTO(user);
@@ -118,10 +126,12 @@ public class UserServiceImpl implements UserService {
 
 			Set<Role> roles = user.getRoles();
 			Set<RoleDTO> roleDTOs = new HashSet<>();
-			for (Role role : roles) {
-				RoleDTO roleDTO = new RoleDTO();
-				BeanUtils.copyProperties(role, roleDTO);
-				roleDTOs.add(roleDTO);
+			if(roles!=null){				
+				for (Role role : roles) {
+					RoleDTO roleDTO = new RoleDTO();
+					BeanUtils.copyProperties(role, roleDTO);
+					roleDTOs.add(roleDTO);
+				}
 			}
 			userDTO.setRoleDTOs(roleDTOs);
 
@@ -139,17 +149,23 @@ public class UserServiceImpl implements UserService {
 		BeanUtils.copyProperties(userDTO, user);
 
 		Set<RoleDTO> roleDTOs = userDTO.getRoleDTOs();
-		Set<Role> roles = new HashSet<>();
-		for (RoleDTO roleDTO : roleDTOs) {
-			Role role = new Role();
-			BeanUtils.copyProperties(roleDTO, role);
-			roles.add(role);
+		Set<Role> roles = null;
+		if (roleDTOs != null) {
+			roles = new HashSet<>();
+			for (RoleDTO roleDTO : roleDTOs) {
+				Role role = new Role();
+				BeanUtils.copyProperties(roleDTO, role);
+				roles.add(role);
+			}
 		}
 		user.setRoles(roles);
 
 		DepartmentDTO departmentDTO = userDTO.getDepartmentDTO();
-		Department department = new Department();
-		BeanUtils.copyProperties(departmentDTO, department);
+		Department department = null;
+		if (departmentDTO != null) {
+			department = new Department();
+			BeanUtils.copyProperties(departmentDTO, department);
+		}
 		user.setDepartment(department);
 
 		return user;

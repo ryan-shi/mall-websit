@@ -9,6 +9,8 @@ public interface UserService {
 			String orderCol);
 
 	public UserDTO findByUsername(String username, Integer type);
+	
+	public UserDTO findByEmail(String email,Integer type);
 
 	public UserDTO findByPrimaryKey(Long id);
 

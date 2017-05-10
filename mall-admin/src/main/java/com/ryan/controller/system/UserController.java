@@ -119,6 +119,7 @@ public class UserController {
 		userDTO.setDepartmentDTO(departmentDTO);
 		Set<RoleDTO> roleDTOs = roleService.findRoleIn(roleDTOIds);
 		userDTO.setRoleDTOs(roleDTOs);
+		userDTO.setType(0);
 		userDTO.setCreateTime(new Date());
 		BCryptPasswordEncoder bpe = new BCryptPasswordEncoder();
 		userDTO.setPassword(bpe.encode("123456"));

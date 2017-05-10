@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+<title>帐号 - 注册</title>
+<link type="text/css" rel="stylesheet" th:href="@{/css/reset.css}">
+<link type="text/css" rel="stylesheet" th:href="@{/css/register/layout.css}">
+<link type="text/css" rel="stylesheet" th:href="@{/css/register/registerpwd.css}">
+<script th:src="@{/js/jquery-2.1.1.js}"></script>
+<script th:src="@{/js/user/register.js}"></script>
+</head>
+<body class="zh_CN">
+	<div class="wrapper">
+		<div class="wrap">
+			<div class="layout">
+				<div class="n-frame device-frame reg_frame" id="main_container">
+					<div class="external_logo_area">
+						<a class="milogo" href="javascript:void(0)"></a>
+					</div>
+					<div class="title-item t_c">
+						<h4 class="title_big30">注册帐号</h4>
+					</div>
+					<div>
+						<form th:action="@{/user/register}" id="registerForm" method="post">
+							<div class="regbox">
+								<div class="phone_step1">
+									<div class="inputbg">
+										<label class="labelbox" for="">
+											<input type="tel" name="username" placeholder="请输入账号">
+										</label>
+									</div>
+									<div class="inputbg">
+										<label class="labelbox" for="">
+											<input type="tel" name="email" placeholder="请输入邮箱">
+										</label>
+									</div>
+									<div class="inputbg">
+										<label class="labelbox" for="">
+											<input type="password" id="password" name="password" placeholder="请输入密码">
+										</label>
+									</div>
+									<div class="inputbg">
+										<label class="labelbox" for="">
+											<input type="password" id="confirm_password" name="confirm_password" placeholder="请确认密码">
+										</label>
+									</div>
+									<div class="err_tip">
+										<div class="dis_box">
+											<em class="icon_error"></em>
+											<span></span>
+										</div>
+									</div>
+									<div class="err_tip send-left-times"></div>
+									<div class="fixed_bot mar_phone_dis1">
+										<input class="btn332 btn_reg_1 submit-step" type="button" id="registerBtn" value="立即注册">
+										<p class="msg">
+											点击“立即注册”，即表示您同意并愿意遵守小米
+											<a href="http://www.miui.com/res/doc/eula/cn.html" target="_blank" title="用户协议">用户协议</a>
+											和
+											<a href="http://www.miui.com/res/doc/privacy/cn.html" target="_blank" title="隐私政策">隐私政策</a>
+										</p>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="n-footer">
+		<div class="nf-link-area clearfix">
+			<ul class="lang-select-list">
+				<li>
+					<a class="lang-select-li current" href="javascript:void(0)" data-lang="zh_CN">简体</a>
+					|
+				</li>
+				<li>
+					<a class="lang-select-li" href="javascript:void(0)" data-lang="zh_TW">繁体</a>
+					|
+				</li>
+				<li>
+					<a class="lang-select-li" href="javascript:void(0)" data-lang="en">English</a>
+					|
+				</li>
+				<li>
+					<a class="a_critical" href="http://static.account.xiaomi.com/html/faq/faqList.html" target="_blank">
+						<em></em>
+						常见问题
+					</a>
+				</li>
+
+			</ul>
+		</div>
+	</div>
+</body>
+</html>

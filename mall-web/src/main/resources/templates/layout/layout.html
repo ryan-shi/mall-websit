@@ -42,7 +42,7 @@
 			<div class="topbar-info" id="J_userInfo">
 				<a rel="nofollow" class="link" th:href="@{/login}" sec:authorize="!isAuthenticated()">登录</a>
 				<span class="sep" sec:authorize="!isAuthenticated()">|</span>
-				<a rel="nofollow" class="link" href="@{/register}" sec:authorize="!isAuthenticated()">注册</a>
+				<a rel="nofollow" class="link" th:href="@{/user/register}" sec:authorize="!isAuthenticated()">注册</a>
 
 				<span class="user" sec:authorize="isAuthenticated()">
 					<a rel="nofollow" class="user-name" href="http://my.mi.com/portal" target="_blank">
