@@ -13,6 +13,7 @@ public class SKUDTO implements Serializable{
 	private BigDecimal priceNow;
 	private Integer score;
 	private Integer stock;
+	private String picture;
 	private String specOptionIds;
 	private Date createTime;
 	private Date updateTime;
@@ -59,6 +60,14 @@ public class SKUDTO implements Serializable{
 
 	public void setStock(Integer stock) {
 		this.stock = stock;
+	}
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
 	}
 
 	public String getSpecOptionIds() {

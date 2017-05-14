@@ -20,7 +20,7 @@ public class CatalogServiceImpl implements CatalogService {
 
 	@Autowired
 	CatalogRepository catalogRepository;
-	
+
 	@Override
 	public List<CatalogDTO> findByParentId(Long parent) {
 		List<Catalog> catalogs = catalogRepository.findByParentId(parent);
@@ -55,6 +55,17 @@ public class CatalogServiceImpl implements CatalogService {
 		List<CatalogDTO> catalogDTOs = new ArrayList<>();
 		for (Catalog catalog : catalogs) {
 			catalogDTOs.add(catalogToCatalogDTO(catalog));
+		}
+		return catalogDTOs;
+	}
+
+	@Override
+	public List<CatalogDTO> findFirstLevelCatalog() {
+		List<Catalog> catalogs = catalogRepository.findByHasChildren(true);
+		List<CatalogDTO> catalogDTOs = new ArrayList<>();
+		for (Catalog catalog : catalogs) {
+			if (catalog.getParentId() != -1)
+				catalogDTOs.add(catalogToCatalogDTO(catalog));
 		}
 		return catalogDTOs;
 	}

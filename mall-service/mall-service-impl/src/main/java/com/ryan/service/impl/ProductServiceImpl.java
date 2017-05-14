@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -87,6 +88,23 @@ public class ProductServiceImpl implements ProductService {
 		productRepository.delete(id);
 	}
 
+	@Override
+	public List<ProductDTO> findTopNProductByStatusAndNewOrSale(Short status, Integer which, Integer n) {
+		Pageable pageable = new PageRequest(0, n, Direction.ASC, "createTime");
+		List<Product> products = null;
+		if (which == 1)
+			products = productRepository.findTopNNewProductByStatus(status, true, pageable);
+		else
+			products = productRepository.findTopNSaleProductByStatus(status, true, pageable);
+		List<ProductDTO> productDTOs = new ArrayList<>();
+		if (products != null) {
+			for (Product product : products) {
+				productDTOs.add(productToProductDTO(product));
+			}
+		}
+		return productDTOs;
+	}
+
 	public ProductDTO productToProductDTO(Product product) {
 		ProductDTO productDTO = new ProductDTO();
 		BeanUtils.copyProperties(product, productDTO);
@@ -109,4 +127,5 @@ public class ProductServiceImpl implements ProductService {
 		product.setCatalog(catalog);
 		return product;
 	}
+
 }

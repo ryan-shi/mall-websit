@@ -15,11 +15,13 @@
 	<!-- <dubbo:reference id="departmentService" interface="com.ryan.service.DepartmentService" />
 	<dubbo:reference id="resourceService" interface="com.ryan.service.ResourceService" />
 	<dubbo:reference id="roleService" interface="com.ryan.service.RoleService" /> -->
-	<dubbo:reference id="userService" interface="com.ryan.service.UserService" />
-	<!-- <dubbo:reference id="catalogService" interface="com.ryan.service.CatalogService" />
-	<dubbo:reference id="specService" interface="com.ryan.service.SpecService" />
+	<!-- 
 	<dubbo:reference id="specOptionService" interface="com.ryan.service.SpecOptionService" />
+	-->
+	<dubbo:reference id="specService" interface="com.ryan.service.SpecService" />
+	<dubbo:reference id="SKUService" interface="com.ryan.service.SKUService" />
+	<dubbo:reference id="userService" interface="com.ryan.service.UserService" />
 	<dubbo:reference id="productService" interface="com.ryan.service.ProductService" />
-	<dubbo:reference id="SKUService" interface="com.ryan.service.SKUService" /> -->
-
+	<dubbo:reference id="catalogService" interface="com.ryan.service.CatalogService" />
+	<dubbo:reference id="AdvertisementService" interface="com.ryan.service.AdvertisementService" />
 </beans>

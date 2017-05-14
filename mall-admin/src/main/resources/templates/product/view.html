@@ -38,6 +38,54 @@
 								</div>
 							</div>
 							<div class="form-group">
+								<label class="col-lg-3 control-label">图片</label>
+								<div class="col-lg-6">
+									<img alt="image" id="headImage" th:src="${product.picture}" style="max-width: 300px;">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">单位</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" th:value="${product.unit}"  id="unit" name="unit" maxlength="16" readonly="readonly"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">浏览数</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" th:value="${product.viewCount}"  id="viewCount" name="viewCount" maxlength="16" readonly="readonly"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">评论数</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" th:value="${product.commentCount}"  id="commentCount" name="commentCount" maxlength="16" readonly="readonly"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">销量</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" th:value="${product.sellCount}"  id="sellCount" name="sellCount" maxlength="16" readonly="readonly"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">检索词</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" th:value="${product.searchWord}" id="searchWord" name="searchWord" maxlength="16" readonly="readonly"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">是否新品</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" th:value="${product.newProduct?'新品':'非新品'}" maxlength="16" readonly="readonly"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">是否特价</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" th:value="${product.saleProduct?'特价':'非特价'}" maxlength="16" readonly="readonly"/>
+								</div>
+							</div>
+							<div class="form-group">
 								<label class="col-lg-3 control-label">状态</label>
 								<div class="col-lg-6">
 									<input class="form-control" type="text" th:value="${product.status==1?'新增':(product.status==2?'已上架':'已下架')}" id="catalog"

@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
 	@Autowired
 	AdvertisementRepository advertisementRepository;
-	
+
 	@Override
 	public Map<String, Object> pageAdvertisementList(Integer page, Integer length, String searchVal, String orderDir,
 			String orderCol) {
@@ -46,7 +47,8 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 				if (!searchVal.equals("")) {
 					Predicate idP = criteriaBuilder.like(root.get("id").as(String.class), "%" + searchVal + "%");
 					Predicate titleP = criteriaBuilder.like(root.get("title"), "%" + searchVal + "%");
-					Predicate positionP = criteriaBuilder.like(root.get("position").as(String.class), "%" + searchVal + "%");
+					Predicate positionP = criteriaBuilder.like(root.get("position").as(String.class),
+							"%" + searchVal + "%");
 					Predicate timeP = criteriaBuilder.like(root.get("createTime").as(String.class),
 							"%" + searchVal + "%");
 					return criteriaBuilder.and(timeP, criteriaBuilder.or(positionP, criteriaBuilder.or(idP, titleP)));
@@ -69,14 +71,14 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
 	@Override
 	public AdvertisementDTO findByPrimaryKey(Long id) {
-		Advertisement advertisement=advertisementRepository.findOne(id);
+		Advertisement advertisement = advertisementRepository.findOne(id);
 		return advertisementToAdvertisementDTO(advertisement);
 	}
 
 	@Override
 	public AdvertisementDTO save(AdvertisementDTO advertisementDTO) {
-		Advertisement advertisement=advertisementDTOToAdvertisement(advertisementDTO);
-		Advertisement savedAdvertisement=advertisementRepository.save(advertisement);
+		Advertisement advertisement = advertisementDTOToAdvertisement(advertisementDTO);
+		Advertisement savedAdvertisement = advertisementRepository.save(advertisement);
 		return advertisementToAdvertisementDTO(savedAdvertisement);
 	}
 
@@ -85,27 +87,38 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 		advertisementRepository.delete(id);
 	}
 
-	public AdvertisementDTO advertisementToAdvertisementDTO(Advertisement advertisement){
-		AdvertisementDTO advertisementDTO=new AdvertisementDTO();
+	@Override
+	public List<AdvertisementDTO> findAdvertisementListByPosition(Integer position,Integer n){
+		Pageable pageable=new PageRequest(0, n, Direction.ASC,"sort");
+		List<Advertisement> advertisements=advertisementRepository.findTopNByPosition(position, pageable);
+		List<AdvertisementDTO> advertisementDTOs=new ArrayList<>();
+		for (Advertisement advertisement : advertisements) {
+			advertisementDTOs.add(advertisementToAdvertisementDTO(advertisement));
+		}
+		return advertisementDTOs;
+	}
+
+	public AdvertisementDTO advertisementToAdvertisementDTO(Advertisement advertisement) {
+		AdvertisementDTO advertisementDTO = new AdvertisementDTO();
 		BeanUtils.copyProperties(advertisement, advertisementDTO);
-		Product product=advertisement.getProduct();
-		ProductDTO productDTO=new ProductDTO();
-		if(product!=null)
+		Product product = advertisement.getProduct();
+		ProductDTO productDTO = new ProductDTO();
+		if (product != null)
 			BeanUtils.copyProperties(product, productDTO);
 		advertisementDTO.setProductDTO(productDTO);
-		
+
 		return advertisementDTO;
 	}
-	
-	public Advertisement advertisementDTOToAdvertisement(AdvertisementDTO advertisementDTO){
-		Advertisement advertisement=new Advertisement();
+
+	public Advertisement advertisementDTOToAdvertisement(AdvertisementDTO advertisementDTO) {
+		Advertisement advertisement = new Advertisement();
 		BeanUtils.copyProperties(advertisementDTO, advertisement);
-		ProductDTO productDTO=advertisementDTO.getProductDTO();
-		Product product=new Product();
-		if(productDTO!=null)
+		ProductDTO productDTO = advertisementDTO.getProductDTO();
+		Product product = new Product();
+		if (productDTO != null)
 			BeanUtils.copyProperties(productDTO, product);
 		advertisement.setProduct(product);
-		
+
 		return advertisement;
 	}
 

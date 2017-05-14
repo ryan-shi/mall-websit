@@ -10,6 +10,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,6 +35,8 @@ import com.ryan.service.SKUService;
 @Service
 public class SKUServiceImpl implements SKUService {
 
+	private static final Logger log = LoggerFactory.getLogger(SKUServiceImpl.class);
+	
 	@Autowired
 	SKURepository skuRepository;
 
@@ -87,6 +91,8 @@ public class SKUServiceImpl implements SKUService {
 	public SKUDTO save(SKUDTO skuDTO) {
 		SKU sku=SKUDTOToSKU(skuDTO);
 		SKU savedSku = skuRepository.save(sku);
+		log.info("saved pecOption:{}",savedSku.getSpecOptions().get(0).getName());
+		log.info("saved spec:{}",savedSku.getSpecOptions().get(0).getSpec());
 		return SKUToSKUDTO(savedSku);
 	}
 
@@ -100,6 +106,16 @@ public class SKUServiceImpl implements SKUService {
 	public void deleteByPrimaryKey(Long id) {
 		skuRepository.delete(id);
 	}
+	
+	@Override
+	public List<SKUDTO> findByProductId(Long id) {
+		List<SKU> skus=skuRepository.findByProductId(id);
+		List<SKUDTO> skuDTOs = new ArrayList<>();
+		for (SKU sku : skus) {
+			skuDTOs.add(SKUToSKUDTO(sku));
+		}
+		return skuDTOs;
+	}
 
 	public SKUDTO SKUToSKUDTO(SKU sku) {
 		SKUDTO skuDTO = new SKUDTO();
@@ -107,15 +123,18 @@ public class SKUServiceImpl implements SKUService {
 
 		List<SpecOption> specOptions = sku.getSpecOptions();
 		List<SpecOptionDTO> specOptionDTOs = new ArrayList<>();
-		SpecOptionDTO specOptionDTO = null;
-		for (SpecOption specOption : specOptions) {
-			Spec spec=specOption.getSpec();
-			SpecDTO specDTO=new SpecDTO();
-			BeanUtils.copyProperties(spec, specDTO);
-			specOptionDTO = new SpecOptionDTO();
-			BeanUtils.copyProperties(specOption, specOptionDTO);
-			specOptionDTO.setSpecDTO(specDTO);
-			specOptionDTOs.add(specOptionDTO);
+		if(specOptionDTOs!=null){
+			for (SpecOption specOption : specOptions) {
+				log.info("specOption:{}",specOption.getName());
+				Spec spec=specOption.getSpec();
+				SpecDTO specDTO=new SpecDTO();
+				log.info("spec:{}",spec);
+				BeanUtils.copyProperties(spec, specDTO);
+				SpecOptionDTO specOptionDTO = new SpecOptionDTO();
+				BeanUtils.copyProperties(specOption, specOptionDTO);
+				specOptionDTO.setSpecDTO(specDTO);
+				specOptionDTOs.add(specOptionDTO);
+			}
 		}
 		skuDTO.setSpecOptionDTOs(specOptionDTOs);
 
@@ -136,7 +155,11 @@ public class SKUServiceImpl implements SKUService {
 		SpecOption specOption = null;
 		for (SpecOptionDTO specOptionDTO : specOptionDTOs) {
 			specOption = new SpecOption();
+			SpecDTO specDTO=specOptionDTO.getSpecDTO();
+			Spec spec=new Spec();
+			BeanUtils.copyProperties(specDTO, spec);
 			BeanUtils.copyProperties(specOptionDTO, specOption);
+			specOption.setSpec(spec);
 			specOptions.add(specOption);
 		}
 		sku.setSpecOptions(specOptions);

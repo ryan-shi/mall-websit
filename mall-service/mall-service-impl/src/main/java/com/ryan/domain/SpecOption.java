@@ -15,25 +15,25 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="spec_option")
-public class SpecOption implements Serializable{
+@Table(name = "spec_option")
+public class SpecOption implements Serializable {
 	private static final long serialVersionUID = 5873096314087147830L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(length = 50)
 	private String name;
-	@Column(length = 10,unique=true)
+	@Column(length = 10, unique = true)
 	private String code;
 	private Integer sort;
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createTime;
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date updateTime;
-	
+
 	@ManyToOne
-	@JoinColumn(name="spec_id")
+	@JoinColumn(name = "spec_id")
 	private Spec spec;
 
 	public Long getId() {
@@ -59,7 +59,7 @@ public class SpecOption implements Serializable{
 	public void setCode(String code) {
 		this.code = code;
 	}
-	
+
 	public Integer getSort() {
 		return sort;
 	}

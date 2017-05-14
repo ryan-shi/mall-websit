@@ -110,6 +110,8 @@ public class ProductController {
 	@RequestMapping(value = "/{id}")
 	public String show(Model model, @PathVariable Long id) {
 		ProductDTO productDTO = productService.findByPrimaryKey(id);
+		String fileUrlPrefix = env.getProperty("file.path.prefix");
+		productDTO.setPicture(fileUrlPrefix+productDTO.getPicture());
 		model.addAttribute("product", productDTO);
 		return "product/view";
 	}
@@ -138,7 +140,7 @@ public class ProductController {
 		log.info("oldPicUrl:{}",oldPicture);
 		if(picture.equals("")){
 			try {
-				fastdfsClient.deleteFile(oldPicture);
+//				fastdfsClient.deleteFile(oldPicture);
 				String fileName = fastdfsClient.uploadFile(pictureFile);
 				log.info("fileName:{}", fileName);
 				productDTO.setPicture(fileName);

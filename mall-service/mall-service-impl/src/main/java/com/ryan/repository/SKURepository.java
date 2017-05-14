@@ -10,4 +10,6 @@ import java.util.List;
 
 public interface SKURepository extends JpaRepository<SKU, Long>, JpaSpecificationExecutor<SKU> {
 	List<SKU> findBySpecOptionIds(String specOptionIds);
+	
+	List<SKU> findByProductId(Long id);
 }

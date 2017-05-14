@@ -1,5 +1,4 @@
 $(function() {
-
 	var $inputImage = $("#product_picture");
 	$inputImage.change(function() {
 		var files = this.files;

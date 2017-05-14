@@ -24,9 +24,30 @@
 								</div>
 							</div>
 							<div class="form-group">
+								<label class="col-lg-3 control-label">排序</label>
+								<div class="col-lg-6">
+									<input class="form-control" type="text" id="sort" name="sort" th:value="${advertisement.sort}" maxlength="16" />
+								</div>
+							</div>
+							<div class="form-group">
 								<label class="col-lg-3 control-label">位置</label>
 								<div class="col-lg-6">
 									<input class="form-control" type="text" id="position" name="position" th:value="${advertisement.position}" maxlength="16" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">图片</label>
+								<div class="col-lg-6">
+									<input type="hidden" id="picture" name="picture" th:value="${advertisement.picture}">
+									<input type="hidden" id="oldPicture" name="oldPicture" th:value="${oldPicture}">
+									<img alt="image" id="headImage" th:src="${advertisement.picture}" style="max-width: 300px;">
+									<input type="file" accept="image/*" name="pictureFile" id="product_picture">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">描述</label>
+								<div class="col-lg-6">
+									<textarea class="form-control" id="description" name="description" th:inline="text" rows="3">[[${advertisement.description==null?"":advertisement.description}]]</textarea>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>

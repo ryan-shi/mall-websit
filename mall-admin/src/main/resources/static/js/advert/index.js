@@ -61,8 +61,17 @@ $(function() {
 									data : "title",
 								},
 								{
+									title : "广告排序",
+									data : "sort",
+								},
+								{
 									title : "广告位置",
 									data : "position",
+								},
+								{
+									title : "描述",
+									data : "description",
+									render : $.fn.dataTable.render.ellipsis(15),
 								},
 								{
 									title : "创建时间",

@@ -1,13 +1,17 @@
 package com.ryan;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.ryan.domain.SKU;
+import com.ryan.repository.SKURepository;
 import com.ryan.repository.SpecRepository;
 import com.ryan.service.SpecService;
 import com.ryan.service.UserService;
@@ -15,9 +19,9 @@ import com.ryan.service.UserService;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MallServiceImplApplicationTests {
-
-//	private static final Logger log = LoggerFactory.getLogger(MallServiceImplApplicationTests.class);
 	
+	private static final Logger log = LoggerFactory.getLogger(MallServiceImplApplicationTests.class);
+
 	@Autowired
 	UserService userService;
 	
@@ -26,6 +30,9 @@ public class MallServiceImplApplicationTests {
 	
 	@Autowired
 	SpecRepository specRepository;
+	
+	@Autowired
+	SKURepository sKURepository;
 	
 	@Test
 	public void contextLoads() {
@@ -38,6 +45,8 @@ public class MallServiceImplApplicationTests {
 //		specRepository.delete(new Long(15));
 //		Spec spec=specRepository.findOne(new Long(15));
 //		specRepository.delete(spec);
+		List<SKU> skus=sKURepository.findByProductId(new Long(30));
+		log.info("skus size:{}",skus.size());
 	}
 
 }

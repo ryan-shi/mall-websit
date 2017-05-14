@@ -98,6 +98,11 @@ $(function() {
 									data : "stock",
 								},
 								{
+									title : "图片地址",
+									data : "picture",
+									render : $.fn.dataTable.render.ellipsis(15),
+								},
+								{
 									title : "积分",
 									data : "score",
 								},

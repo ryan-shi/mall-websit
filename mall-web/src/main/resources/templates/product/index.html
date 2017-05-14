@@ -1,0 +1,335 @@
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout/layout">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link th:href="@{/css/product/goods-detail.min.css}" rel="stylesheet">
+<script type="text/javascript" th:src="@{/js/product/product.js}"></script>
+<title>商品详情</title>
+<style type="text/css">
+.site-header .header-nav {
+	width: 600px;
+}
+
+.site-header .search-text {
+	width: 450px;
+}
+
+.doodle .link-block {
+	position: absolute;
+	left: 69px;
+	bottom: -21px;
+	z-index: 21;
+	width: 165px;
+	height: 100px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-indent: -9999em
+}
+
+.goods-detail .goods-big-pic {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	height: 482px;
+	width: 482px;
+	left: 106px;
+	position: absolute;
+	top: 0px;
+	z-index: 10;
+	cursor: -webkit-zoom-in;
+	cursor: zoom-in
+}
+
+.goods-detail .goods-big-pic img {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	/* width: 482px; */
+	min-height: 482px
+}
+
+.goods-detail .goods-pic-loading {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	z-index: 5;
+	top: 255px;
+	left: 330px
+}
+</style>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="site-header">
+			<div class="container">
+				<div class="header-logo">
+					<a class="logo ir" href="http://www.mi.com/index.html" title="小米官网">小米官网</a>
+					<div class="doodle" style="display: block;">
+						<a class="link-block" style="background-image: url(/img/dysj3.gif)"
+							href="http://hd.mi.com/x/03021d/index.html" target="_blank"></a>
+					</div>
+				</div>
+				<div class="header-search">
+					<form id="J_searchForm" class="search-form clearfix" action="http://search.mi.com/search"
+						method="get">
+						<label for="search" class="hide">站内搜索</label>
+						<input class="search-text" type="search" id="search" name="keyword" autocomplete="off">
+						<input type="submit" class="search-btn iconfont" value="">
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- S 面包屑 -->
+		<div class="breadcrumbs">
+			<div class="container ">
+				<a th:href="@{/}">首页</a>
+				<span class="sep">/</span>
+				<a href="http://list.mi.com/0">配件</a>
+				<span class="sep">/</span>
+				<a href="http://list.mi.com/8">手机配件</a>
+				<span class="sep">/</span>
+				<a href="http://item.mi.com/1153900007.html">小米4c 智能唤醒翻盖保护套 黑色</a>
+			</div>
+		</div>
+		<!-- E 面包屑 -->
+		<div class="goods-detail">
+			<div class="goods-detail-info  clearfix J_goodsDetail">
+				<div class="container">
+					<div class="row">
+						<div class="span12  J_mi_goodsPic_block goods-detail-left-info">
+							<div class="goods-pic-box  " id="J_mi_goodsPicBox">
+								<div class="goods-big-pic J_bigPicBlock">
+									<img th:src="${sku.picture}" class="J_goodsBigPic" id="J_BigPic">
+								</div>
+							</div>
+							<div class="span11 goods-batch-img-list-block J_goodsBatchImg"></div>
+						</div>
+						<div class="span7 goods-info-rightbox">
+							<div class="goods-info-leftborder"></div>
+							<dl class="goods-info-box ">
+								<dt class="goods-info-head">
+									<dl id="J_goodsInfoBlock">
+										<dt id="goodsName" class="goods-name" th:text="${product.name}"></dt>
+										<dd class="goods-subtitle">
+											<p th:text="${product.introduce}">细腻触感 / 翻开自动唤醒屏幕</p>
+										</dd>
+										<dd class="goods-info-head-tip">
+											<ul>
+												<li class="others">
+													<i th:if="${product.newProduct}">新品</i>
+													<i th:if="${product.saleProduct}">折扣</i>
+												</li>
+											</ul>
+										</dd>
+										<dd class="goods-info-head-price clearfix">
+											<b class="J_mi_goodsPrice" th:text="${sku.priceNow}">29</b>
+											<i>&nbsp;元</i>
+											<del th:if="${product.saleProduct}">
+												<span class="J_mi_marketPrice" th:text="${sku.price}+'元'">49元</span>
+											</del>
+										</dd>
+										<dd th:each="spec:${specs}" class="goods-info-head-size clearfix">
+											<span class="style-name" th:text="${spec.name}"></span>
+											<ul class="clearfix" id="J_goodsSize">
+												<li th:each="specOption:${spec.specOptionDTOs}" th:id="${spec.id}+'-'+${specOption.id}" th:classappend="${#strings.contains(sku.specOptionIds,specOption.id)?'spec current':'spec'}">
+													<a href="javascript:void(0);" class="item goodsStyle " th:text="${specOption.name}"></a>
+													<!-- <button class="btn item goodsStyle" disabled></button> -->
+												</li>
+											</ul>
+										</dd>
+										<dd class="goods-info-head-cart" id="goodsDetailBtnBox">
+											<a href="#" id="goodsDetailAddCartBtn" class="btn  btn-primary goods-add-cart-btn">
+												<i class="iconfont"></i>
+												加入购物车
+											</a>
+											<a id="goodsDetailCollectBtn" class=" btn btn-gray  goods-collect-btn ">
+												<i class="iconfont default"></i>
+												<i class="iconfont red"></i>
+												<i class="iconfont red J_redCopy"></i>
+												喜欢
+											</a>
+										</dd>
+										<dd class="goods-info-head-policy">
+											<i class="iconfont ">  </i>
+											<span> 支持7天无理由退货 (拆封后不支持) </span>
+										</dd>
+										<dd class="goods-info-head-userfaq">
+											<ul>
+												<li class="J_scrollHref" data-href="#goodsComment">
+													<i class="iconfont"></i>
+													评价
+													<b>2.4万</b>
+												</li>
+												<li class="J_scrollHref mid" data-href="#goodsFaq">
+													<i class="iconfont"></i>
+													提问
+													<b>70</b>
+												</li>
+												<li class="J_scrollHref " data-href="#goodsComment">
+													<i class="iconfont"></i>
+													满意度
+													<b>98%</b>
+												</li>
+											</ul>
+										</dd>
+									</dl>
+								</dt>
+								<dd class="goods-info-foot">
+									<a href="http://list.mi.com/8">
+										<span class="iconfont"></span>
+										查看更多同类产品
+									</a>
+								</dd>
+							</dl>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="full-screen-border"></div>
+			<div class="goods-detail-nav" id="goodsDetail">
+				<div class="container">
+					<ul class="detail-list J_detailNav J_originNav">
+						<li class="current detail-nav">
+							<a data-href="#goodsDesc" class="J_scrollHref">详情描述</a>
+						</li>
+
+						<li class="detail-nav">
+							<a data-href="#goodsParam" class="J_scrollHref">规格参数</a>
+						</li>
+
+						<li class="detail-nav">
+							<a data-href="#goodsComment" class="J_scrollHref">
+								评价晒单
+								<i>(2.4万)</i>
+							</a>
+						</li>
+
+						<li class="last detail-nav">
+							<a data-href="#goodsFaq" class="J_scrollHref">
+								商品提问
+								<i>(70)</i>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+			<div class="goods-detail-desc J_itemBox" id="goodsDesc">
+				<div class="container">
+					<div class="shape-container">
+						<p class="detailBlock">
+						<p>
+							<img alt="" data-src="//c1.mifile.cn/f/i/g/2015/cn-index/fangaihxt1.jpg"
+								src="./【小米4c 智能唤醒翻盖保护套 黑色】保护套_保护壳-小米商城_files/fangaihxt1.jpg">
+							<img alt="" data-src="//c1.mifile.cn/f/i/g/2015/cn-index/fangaihxt2.jpg"
+								src="./【小米4c 智能唤醒翻盖保护套 黑色】保护套_保护壳-小米商城_files/fangaihxt2.jpg">
+							<img alt="" data-src="//c1.mifile.cn/f/i/g/2015/cn-index/fangaihxt3.jpg">
+							<img alt="" data-src="//c1.mifile.cn/f/i/g/2015/cn-index/fangaihxt4.jpg">
+							<img alt="" data-src="//c1.mifile.cn/f/i/g/2015/cn-index/fangaihxt5.jpg">
+						</p>
+						<p style="position: relative">
+							<img alt="" data-src="//c1.mifile.cn/f/i/g/2015/cn-index/4cfangai_06.jpg">
+							<a href="http://item.mi.com/1153900001.html"
+								style="position: absolute; display: block; width: 320px; height: 500px; left: 100px; top: 130px;">&nbsp;</a>
+							<a href="http://item.mi.com/1153900007.html"
+								style="position: absolute; display: block; width: 320px; height: 500px; top: 130px; left: 450px;">&nbsp;</a>
+							<a href="http://item.mi.com/1153900005.html"
+								style="position: absolute; display: block; width: 320px; height: 500px; left: 810px; top: 130px;">&nbsp;</a>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="goods-detail-nav-name-block J_itemBox" id="goodsParam">
+				<div class="container main-block">
+					<div class="border-line"></div>
+					<h2 class="nav-name">规格参数</h2>
+				</div>
+			</div>
+			<!--规格-->
+			<div class="goods-detail-param  J_itemBox">
+				<div class="container">
+					<ul class="param-list">
+						<li class="goods-img">
+							<img th:src="${product.picture}" width="180" height="180" alt="">
+						</li>
+						<li class="goods-tech-spec">
+							<dl>
+								<dd>
+									<ul>
+										<li>材质：PU+PC+仿超</li>
+										<li>尺寸：L/138.5mm*W/72mm*H/11mm</li>
+										<li>颜色：黑色</li>
+										<li>商品编号：1153900007</li>
+									</ul>
+								</dd>
+							</dl>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<!--规格-->
+			<div class="goods-detail-nav-name-block J_itemBox" id="goodsComment">
+				<div class="container main-block">
+					<div class="border-line"></div>
+					<h2 class="nav-name">评价晒单</h2>
+				</div>
+			</div>
+			<!--评价-->
+			<div class="goods-detail-comment J_itemBox" id="goodsCommentContent">
+				<div class="goods-detail-comment-groom" id="J_recommendComment"></div>
+
+				<div class="goods-detail-comment-content" id="J_commentDetailBlock">
+					<div class="container">
+						<div class="row">
+							<div class="span14 goods-detail-comment-list">
+								<div class="comment-order-title">
+									<div class="left-title">
+										<h3 class="comment-name">最有帮助的评价</h3>
+									</div>
+									<div class="right-title J_showImg">
+										<i class="iconfont">√</i>
+										只显示带图评价
+									</div>
+								</div>
+								<ul class="comment-box-list" id="J_supComment">
+
+								</ul>
+							</div>
+							<div class="span6 goods-detail-comment-timeline">
+								<h3 class="comment-name">最新评价</h3>
+								<ul class="comment-timeline-list" id="J_timelineComment">
+
+								</ul>
+							</div>
+							<div class="span20 goods-detail-comment-more hide" id="J_loadCommentMore">
+								加载更多
+								<i class="iconfont"></i>
+							</div>
+							<div class="span20 goods-detail-comment-more hide" id="J_loadMoreHref">
+								<a target="_blank" href="http://item.mi.com/comment/commentList/gid/1153900007/pid/2673">查看更多评价</a>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+				<div class="loader-block">
+					<div class="loader"></div>
+				</div>
+				<div class="goods-detail-null-content" id="J_commentTipInfo">
+					<div class="container">
+						<h3>暂时还没有评价</h3>
+						<p>期待你分享科技带来的乐趣</p>
+					</div>
+				</div>
+
+			</div>
+			<!--评价-->
+		</div>
+	</div>
+</body>
+</html>

@@ -31,6 +31,7 @@ public class SKU implements Serializable{
 	private BigDecimal priceNow;
 	private Integer score;
 	private Integer stock;
+	private String picture;
 	@Column(name="spec_option_ids",length=100)
 	private String specOptionIds;
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -77,6 +78,14 @@ public class SKU implements Serializable{
 
 	public void setScore(Integer score) {
 		this.score = score;
+	}
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
 	}
 
 	public Integer getStock() {

@@ -24,7 +24,10 @@ public class Advertisement implements Serializable{
 	private Long id;
 	@Column(length = 50)
 	private String title;
-	private Integer position;
+	private Integer sort;
+	private Integer position; //1表示首页滚动大图 2表示search 3表示人气单品 之后改为枚举
+	private String picture;
+	private String description;
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createTime;
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -50,12 +53,36 @@ public class Advertisement implements Serializable{
 		this.title = title;
 	}
 
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
+
 	public Integer getPosition() {
 		return position;
 	}
 
 	public void setPosition(Integer position) {
 		this.position = position;
+	}
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Date getCreateTime() {

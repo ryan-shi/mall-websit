@@ -17,4 +17,5 @@ public interface SKUService {
 
 	void deleteByPrimaryKey(Long id);
 
+	List<SKUDTO> findByProductId(Long id);
 }

@@ -14,4 +14,6 @@ public interface CatalogService {
 	void deleteByPrimaryKey(Long id);
 
 	List<CatalogDTO> findByHasChildren(boolean haschildren);
+	
+	List<CatalogDTO> findFirstLevelCatalog();
 }

@@ -11,7 +11,6 @@ $(function() {
 			fileReader.readAsDataURL(file);
 			fileReader.onload = function() {
 				$("#headImage").attr("src", this.result);
-				console.log("!!1111----");
 				$("#picture").val("");
 			};
 		} else {
