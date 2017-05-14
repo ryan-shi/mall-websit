@@ -16,7 +16,6 @@
 <!-- Mainly scripts -->
 <script th:src="@{/js/jquery-2.1.1.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
-
 <script th:src="@{/js/common.js}"></script>
 </head>
 <body>
@@ -31,7 +30,7 @@
 				<a rel="nofollow" class="cart-mini" id="J_miniCartBtn" href="http://static.mi.com/cart/">
 					<i class="iconfont"></i>
 					购物车
-					<span class="cart-mini-num J_cartNum">（0）</span>
+					<span class="cart-mini-num J_cartNum" th:text="${session.}">（0）</span>
 				</a>
 				<div class="cart-menu" id="J_miniCartMenu" style="display: none;">
 					<div class="loading">
@@ -52,9 +51,6 @@
 					<ul class="user-menu">
 						<li>
 							<a rel="nofollow" href="http://my.mi.com/portal" target="_blank">个人中心</a>
-						</li>
-						<li>
-							<a rel="nofollow" href="http://order.mi.com/user/comment" target="_blank">评价晒单</a>
 						</li>
 						<li>
 							<a rel="nofollow" href="http://order.mi.com/user/favorite" target="_blank">我的喜欢</a>

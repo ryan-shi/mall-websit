@@ -133,14 +133,16 @@
 										<dd th:each="spec:${specs}" class="goods-info-head-size clearfix">
 											<span class="style-name" th:text="${spec.name}"></span>
 											<ul class="clearfix" id="J_goodsSize">
-												<li th:each="specOption:${spec.specOptionDTOs}" th:id="${spec.id}+'-'+${specOption.id}" th:classappend="${#strings.contains(sku.specOptionIds,specOption.id)?'spec current':'spec'}">
+												<li th:each="specOption:${spec.specOptionDTOs}" th:id="${spec.id}+'-'+${specOption.id}"
+													th:classappend="${#strings.contains(sku.specOptionIds,specOption.id)?'spec current':'spec'}">
 													<a href="javascript:void(0);" class="item goodsStyle " th:text="${specOption.name}"></a>
 													<!-- <button class="btn item goodsStyle" disabled></button> -->
 												</li>
 											</ul>
 										</dd>
 										<dd class="goods-info-head-cart" id="goodsDetailBtnBox">
-											<a href="#" id="goodsDetailAddCartBtn" class="btn  btn-primary goods-add-cart-btn">
+											<a th:href="@{/cart/}+${sku.id}" id="goodsDetailAddCartBtn"
+												class="btn  btn-primary goods-add-cart-btn">
 												<i class="iconfont"></i>
 												加入购物车
 											</a>
@@ -222,10 +224,8 @@
 					<div class="shape-container">
 						<p class="detailBlock">
 						<p>
-							<img alt="" data-src="//c1.mifile.cn/f/i/g/2015/cn-index/fangaihxt1.jpg"
-								src="./【小米4c 智能唤醒翻盖保护套 黑色】保护套_保护壳-小米商城_files/fangaihxt1.jpg">
-							<img alt="" data-src="//c1.mifile.cn/f/i/g/2015/cn-index/fangaihxt2.jpg"
-								src="./【小米4c 智能唤醒翻盖保护套 黑色】保护套_保护壳-小米商城_files/fangaihxt2.jpg">
+							<img src="">
+							<img src="">
 							<img alt="" data-src="//c1.mifile.cn/f/i/g/2015/cn-index/fangaihxt3.jpg">
 							<img alt="" data-src="//c1.mifile.cn/f/i/g/2015/cn-index/fangaihxt4.jpg">
 							<img alt="" data-src="//c1.mifile.cn/f/i/g/2015/cn-index/fangaihxt5.jpg">

@@ -1,0 +1,73 @@
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout/layout">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link th:href="@{/css/cart/buy-success.min.css}" rel="stylesheet">
+<script type="text/javascript" th:src="@{/js/cart/cart.js}"></script>
+<title>商品详情</title>
+<style type="text/css">
+.site-header .header-nav {
+	width: 600px;
+}
+
+.site-header .search-text {
+	width: 450px;
+}
+
+.doodle .link-block {
+	position: absolute;
+	left: 69px;
+	bottom: -21px;
+	z-index: 21;
+	width: 165px;
+	height: 100px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	text-indent: -9999em
+}
+</style>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="site-header">
+			<div class="container">
+				<div class="header-logo">
+					<a class="logo ir" href="http://www.mi.com/index.html" title="小米官网">小米官网</a>
+					<div class="doodle" style="display: block;">
+						<a class="link-block" style="background-image: url(/img/dysj3.gif)"
+							href="http://hd.mi.com/x/03021d/index.html" target="_blank"></a>
+					</div>
+				</div>
+				<div class="header-search">
+					<form id="J_searchForm" class="search-form clearfix" action="http://search.mi.com/search"
+						method="get">
+						<label for="search" class="hide">站内搜索</label>
+						<input class="search-text" type="search" id="search" name="keyword" autocomplete="off">
+						<input type="submit" class="search-btn iconfont" value="">
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="page-main">
+			<div class="container">
+				<div class="buy-succ-box clearfix">
+					<div class="goods-content" id="J_goodsBox">
+						<div class="goods-img">
+							<img th:src="@{/img/success.png}" width="64" height="64">
+						</div>
+						<div class="goods-info">
+							<h3>已成功加入购物车！</h3>
+							<span class="name" th:text="${sku.productDTO.name}"></span>
+						</div>
+					</div>
+					<div class="actions J_actBox">
+						<p class="hide J_notic">有商品未成功加入购物车，可以在购物车中查看</p>
+						<a href="javascript:void(0);" class="btn btn-line-gray J_goBack">返回上一级</a>
+						<a href="http://static.mi.com/cart/" class="btn btn-primary">去购物车结算</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
