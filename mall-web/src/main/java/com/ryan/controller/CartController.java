@@ -39,6 +39,7 @@ public class CartController {
 			Map<Long, Integer> cart = new HashMap<>();
 			cart.put(id, 1);
 			session.setAttribute("cart", cart);
+			session.setAttribute("cart", cart);
 		} else {
 			log.info("购物车不为空！");
 			Map<Long, Integer> cart = (Map<Long, Integer>) cartObj;
