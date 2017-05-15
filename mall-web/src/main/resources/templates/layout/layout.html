@@ -26,15 +26,38 @@
 				<span class="sep">|</span>
 				<a rel="nofollow" href="http://static.mi.com/feedback/" target="_blank">问题反馈</a>
 			</div>
-			<div class="topbar-cart" id="J_miniCartTrigger">
+			<div class="topbar-cart" id="J_miniCartTrigger" th:classappend="${session.cart==null?'':'topbar-cart-filled'}">
 				<a rel="nofollow" class="cart-mini" id="J_miniCartBtn" href="http://static.mi.com/cart/">
 					<i class="iconfont"></i>
 					购物车
-					<span class="cart-mini-num J_cartNum" th:text="${session.}">（0）</span>
+					<span class="cart-mini-num J_cartNum" th:text="'（'+${session.cart==null?'0':session.cart.allCount}+'）'"></span>
 				</a>
 				<div class="cart-menu" id="J_miniCartMenu" style="display: none;">
-					<div class="loading">
-						<div class="loader"></div>
+					<ul th:if="${session.cart!=null}" class="cart-list">
+						<li th:each="cartItem,iterStat:${session.cart.cartItems}">
+							<div class="cart-item clearfix" th:classappend="${iterStat.index==0?'':'first'}">
+								<a class="thumb" th:href="@{/product/}+${cartItem.skuId}+'.html'">
+									<img alt="" th:src="'#'">
+								</a>
+								<a class="name" th:href="@{/product/}+${cartItem.skuId}+'.html'">小米体重秤 白色</a>
+								<span class="price">99元 × 1</span>
+								<a class="btn-del J_delItem" href="javascript: void(0);">
+									<i class="iconfont"></i>
+								</a>
+							</div>
+						</li>
+					</ul>
+					<div class="cart-total clearfix">
+						<span class="total">
+							共
+							<em>2</em>
+							件商品
+							<span class="price">
+								<em>798.00</em>
+								元
+							</span>
+						</span>
+						<a href="http://static.mi.com/cart/" class="btn btn-primary btn-cart">去购物车结算</a>
 					</div>
 				</div>
 			</div>
@@ -97,6 +120,12 @@
 				$(".user .user-menu").css("display", "none");
 			});
 
+			$(".topbar-cart").mouseenter(function() {
+				$("#J_miniCartMenu").css("display", "block");
+			});
+			$(".topbar-cart").mouseleave(function(event) {
+				$("#J_miniCartMenu").css("display", "none");
+			});
 		});
 	</script>
 </body>
