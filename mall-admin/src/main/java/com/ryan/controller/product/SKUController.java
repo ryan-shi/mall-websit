@@ -57,10 +57,13 @@ public class SKUController {
 		Arrays.sort(specOptionId);
 		SpecOptionDTO specOptionDTO = null;
 		StringBuffer specOptionIds = new StringBuffer();
+		ProductDTO productDTO = productService.findByPrimaryKey(productId);
+		StringBuffer name = new StringBuffer(productDTO.getName());
 		List<SpecOptionDTO> specOptions = new ArrayList<>();
 		for (int i = 0; i < specOptionId.length; i++) {
 			specOptionDTO = specOptionService.findByPrimaryKey(specOptionId[i]);
 			specOptions.add(specOptionDTO);
+			name.append(" " + specOptionDTO.getName());
 			if (i + 1 == specOptionId.length) {
 				specOptionIds.append(specOptionId[i]);
 			} else {
@@ -79,9 +82,10 @@ public class SKUController {
 					return "2";
 				}
 			}
-			ProductDTO productDTO = productService.findByPrimaryKey(productId);
 			skuDTO.setProductDTO(productDTO);
 			skuDTO.setCreateTime(new Date());
+			log.info("sku name:{}", name.toString());
+			skuDTO.setName(name.toString());
 			skuDTO.setSpecOptionIds(specOptionIds.toString());
 			skuDTO.setSpecOptionDTOs(specOptions);
 			skuService.save(skuDTO);
@@ -130,7 +134,7 @@ public class SKUController {
 		String fileUrlPrefix = env.getProperty("file.path.prefix");
 		skuDTO.setPicture(fileUrlPrefix + skuDTO.getPicture());
 		model.addAttribute("sku", skuDTO);
-		String oldPicUrl=skuDTO.getPicture();
+		String oldPicUrl = skuDTO.getPicture();
 		model.addAttribute("oldPicture", oldPicUrl);
 		return "sku/edit";
 	}
@@ -143,22 +147,22 @@ public class SKUController {
 		skuDTO.setSpecOptionDTOs(oldSku.getSpecOptionDTOs());
 		skuDTO.setProductDTO(oldSku.getProductDTO());
 		skuDTO.setUpdateTime(new Date());
-		String picture=skuDTO.getPicture();
-		log.info("pic: {}",picture);
-		log.info("oldPicUrl:{}",oldPicture);
-		if(picture.equals("")){
+		String picture = skuDTO.getPicture();
+		log.info("pic: {}", picture);
+		log.info("oldPicUrl:{}", oldPicture);
+		if (picture.equals("")) {
 			try {
-//				fastdfsClient.deleteFile(oldPicture);
+				// fastdfsClient.deleteFile(oldPicture);
 				String fileName = fastdfsClient.uploadFile(pictureFile);
 				log.info("fileName:{}", fileName);
 				skuDTO.setPicture(fileName);
 				skuService.save(skuDTO);
 				log.info("新增->ID=" + skuDTO.getId());
 				return "1";
-			}catch (Exception e) {
+			} catch (Exception e) {
 				return "2";
 			}
-		}else{
+		} else {
 			skuDTO.setPicture(oldPicture);
 			skuService.save(skuDTO);
 			log.info("更新id：{}", skuDTO.getId());
