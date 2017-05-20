@@ -24,40 +24,43 @@
 			<div class="topbar-nav">
 				<a rel="nofollow" th:href="@{/}">非凡商城</a>
 				<span class="sep">|</span>
-				<a rel="nofollow" href="http://static.mi.com/feedback/" target="_blank">问题反馈</a>
+				<a rel="nofollow" href="#" target="_blank">问题反馈</a>
 			</div>
 			<div class="topbar-cart" id="J_miniCartTrigger" th:classappend="${session.cart==null?'':'topbar-cart-filled'}">
-				<a rel="nofollow" class="cart-mini" id="J_miniCartBtn" href="http://static.mi.com/cart/">
+				<a rel="nofollow" class="cart-mini" id="J_miniCartBtn" th:href="@{/cart/index}">
 					<i class="iconfont"></i>
 					购物车
 					<span class="cart-mini-num J_cartNum" th:text="'（'+${session.cart==null?'0':session.cart.allCount}+'）'"></span>
 				</a>
 				<div class="cart-menu" id="J_miniCartMenu" style="display: none;">
+					<div th:if="${session.cart==null}" class="loading">
+					购物车中还没有商品，赶紧选购吧！
+					</div>
 					<ul th:if="${session.cart!=null}" class="cart-list">
 						<li th:each="cartItem,iterStat:${session.cart.cartItems}">
 							<div class="cart-item clearfix" th:classappend="${iterStat.index==0?'':'first'}">
 								<a class="thumb" th:href="@{/product/}+${cartItem.skuId}+'.html'">
-									<img alt="" th:src="'#'">
+									<img alt="" th:src="${cartItem.skuPicture}">
 								</a>
-								<a class="name" th:href="@{/product/}+${cartItem.skuId}+'.html'">小米体重秤 白色</a>
-								<span class="price">99元 × 1</span>
+								<a class="name" th:href="@{/product/}+${cartItem.skuId}+'.html'" th:text="${cartItem.skuName}">小米体重秤 白色</a>
+								<span class="price" th:text="${cartItem.skuNowPrice}+' x '+${cartItem.count}">99元 × 1</span>
 								<a class="btn-del J_delItem" href="javascript: void(0);">
 									<i class="iconfont"></i>
 								</a>
 							</div>
 						</li>
 					</ul>
-					<div class="cart-total clearfix">
+					<div th:if="${session.cart!=null}" class="cart-total clearfix">
 						<span class="total">
 							共
-							<em>2</em>
+							<em th:text="${session.cart.allCount}">2</em>
 							件商品
 							<span class="price">
-								<em>798.00</em>
+								<em th:text="${session.cart.allPrice}">798.00</em>
 								元
 							</span>
 						</span>
-						<a href="http://static.mi.com/cart/" class="btn btn-primary btn-cart">去购物车结算</a>
+						<a th:href="@{/cart/index}" class="btn btn-primary btn-cart">去购物车结算</a>
 					</div>
 				</div>
 			</div>
@@ -94,7 +97,7 @@
 					</a>
 				</span>
 				<span class="sep" sec:authorize="isAuthenticated()">|</span>
-				<a rel="nofollow" class="link link-order" href="http://static.mi.com/order/" target="_blank"
+				<a rel="nofollow" class="link link-order" href="#" target="_blank"
 					sec:authorize="isAuthenticated()">我的订单</a>
 			</div>
 		</div>
@@ -104,7 +107,7 @@
 	<form th:action="@{/logout}" method="post" id="logoutform"></form>
 	<script type="text/javascript">
 		$(function() {
-			$("#logout-top,#logout-nav").click(function(event) {
+			$("#logout-top").click(function(event) {
 				event.preventDefault();
 				if (confirm('您确定退出吗？')) {
 					$("#logoutform").submit();

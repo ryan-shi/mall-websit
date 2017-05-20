@@ -23,5 +23,7 @@
 	<dubbo:reference id="userService" interface="com.ryan.service.UserService" />
 	<dubbo:reference id="productService" interface="com.ryan.service.ProductService" />
 	<dubbo:reference id="catalogService" interface="com.ryan.service.CatalogService" />
-	<dubbo:reference id="AdvertisementService" interface="com.ryan.service.AdvertisementService" />
+	<dubbo:reference id="advertisementService" interface="com.ryan.service.AdvertisementService" />
+	<dubbo:reference id="orderService" interface="com.ryan.service.OrderService" />
+	<dubbo:reference id="addressService" interface="com.ryan.service.AddressService" />
 </beans>

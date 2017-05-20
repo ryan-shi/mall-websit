@@ -36,8 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.formLogin().loginPage("/login").permitAll().successHandler(loginSuccessHandler())
-				.failureUrl("/login?error").and().authorizeRequests()
-				.antMatchers("/img/**", "/js/**", "/css/**", "/fonts/**","/","/**").permitAll().anyRequest().authenticated().and()
+				.failureUrl("/login?error").and().authorizeRequests().antMatchers("/order/**").authenticated()
+				.and().authorizeRequests().antMatchers("/img/**", "/js/**", "/css/**", "/fonts/**","/**").permitAll()
+				.and()
 				.logout().logoutSuccessUrl("/").and().exceptionHandling().accessDeniedPage("/deny").and().rememberMe()
 				.tokenValiditySeconds(86400).tokenRepository(tokenRepository()).and().sessionManagement()
 				.maximumSessions(1).expiredUrl("/login?error=expired");

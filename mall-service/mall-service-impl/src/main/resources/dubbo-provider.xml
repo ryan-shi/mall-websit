@@ -25,5 +25,7 @@
     <dubbo:service interface="com.ryan.service.SpecOptionService" ref="specOptionServiceImpl" retries="0" timeout="6000"/>
     <dubbo:service interface="com.ryan.service.ProductService" ref="productServiceImpl" retries="0" timeout="6000"/>
     <dubbo:service interface="com.ryan.service.SKUService" ref="SKUServiceImpl" retries="0" timeout="6000"/>
+    <dubbo:service interface="com.ryan.service.OrderService" ref="orderServiceImpl" retries="0" timeout="6000"/>
+    <dubbo:service interface="com.ryan.service.AddressService" ref="addressServiceImpl" retries="0" timeout="6000"/>
 
 </beans>

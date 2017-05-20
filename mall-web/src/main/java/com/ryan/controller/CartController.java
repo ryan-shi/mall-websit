@@ -9,8 +9,10 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -27,6 +29,8 @@ public class CartController {
 	private static final Logger log = LoggerFactory.getLogger(CartController.class);
 
 	@Autowired
+	private Environment env;
+	@Autowired
 	SKUService skuService;
 
 	@RequestMapping("/{id}")
@@ -34,14 +38,16 @@ public class CartController {
 		log.info("sku id: {}", id);
 		SKUDTO skuDTO = skuService.findByPrimaryKey(id);
 		HttpSession session = request.getSession();
+		String fileUrlPrefix = env.getProperty("file.path.prefix");
 		Object cartObj = session.getAttribute("cart");
 		if (cartObj == null) {
 			log.info("购物车为空,添加sku id: {},name: {}", id, skuDTO.getProductDTO().getName());
 			ProductDTO productDTO = skuDTO.getProductDTO();
 			List<CartItem> cartItems = new ArrayList<>();
-			CartItem cartItem = new CartItem(id, productDTO.getId(), productDTO.getName(), 1);
+			CartItem cartItem = new CartItem(id, productDTO.getId(), productDTO.getName(), skuDTO.getName(),
+					fileUrlPrefix + skuDTO.getPicture(), skuDTO.getPriceNow(), 1);
 			cartItems.add(cartItem);
-			Cart cart = new Cart(cartItems, 1);
+			Cart cart = new Cart(cartItems, 1, skuDTO.getPriceNow());
 			session.setAttribute("cart", cart);
 			session.setAttribute("cart", cart);
 		} else {
@@ -52,19 +58,28 @@ public class CartController {
 			if (cartItem == null) {
 				log.info("{},{},此商品之前没有！", id, skuDTO.getProductDTO().getName());
 				ProductDTO productDTO = skuDTO.getProductDTO();
-				CartItem newCartItem = new CartItem(id, productDTO.getId(), productDTO.getName(), 1);
+				CartItem newCartItem = new CartItem(id, productDTO.getId(), productDTO.getName(), skuDTO.getName(),
+						fileUrlPrefix + skuDTO.getPicture(), skuDTO.getPriceNow(), 1);
 				cart.getCartItems().add(newCartItem);
 				cart.setAllCount(cart.getAllCount() + 1);
+				cart.setAllPrice(cart.getAllPrice().add(skuDTO.getPriceNow()));
 			} else {
 				int count = cartItem.getCount();
 				log.info("{},{},此商品存在！ count: {}", id, skuDTO.getProductDTO().getName(), count);
 				cartItem.setCount(count + 1);
 				cart.setAllCount(cart.getAllCount() + 1);
+				cart.setAllPrice(cart.getAllPrice().add(skuDTO.getPriceNow()));
 			}
 			session.setAttribute("cart", cart);
 		}
 		log.info("sku:{}", skuDTO);
 		model.addAttribute("sku", skuDTO);
+
+		return "cart/success";
+	}
+
+	@GetMapping("/index")
+	public String doneCart() {
 		return "cart/index";
 	}
 }

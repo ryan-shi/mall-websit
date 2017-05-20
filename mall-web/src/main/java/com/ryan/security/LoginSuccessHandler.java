@@ -19,9 +19,11 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		SecurityUser userDetails = (SecurityUser) authentication.getPrincipal();
-		log.info("前台登录用户: {}",userDetails.getUsername() + " login " + request.getContextPath());
+		log.info("前台登录用户: {}", userDetails.getUsername() + " login " + request.getContextPath());
 		log.info("IP: {}", getIpAddress(request));
+		
 		super.onAuthenticationSuccess(request, response, authentication);
+
 	}
 
 	public String getIpAddress(HttpServletRequest request) {

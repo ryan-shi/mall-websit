@@ -1,73 +1,183 @@
-<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout/layout">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link th:href="@{/css/cart/buy-success.min.css}" rel="stylesheet">
-<script type="text/javascript" th:src="@{/js/cart/cart.js}"></script>
-<title>商品详情</title>
-<style type="text/css">
-.site-header .header-nav {
-	width: 600px;
-}
-
-.site-header .search-text {
-	width: 450px;
-}
-
-.doodle .link-block {
-	position: absolute;
-	left: 69px;
-	bottom: -21px;
-	z-index: 21;
-	width: 165px;
-	height: 100px;
-	background-repeat: no-repeat;
-	background-position: center center;
-	text-indent: -9999em
-}
-</style>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>我的购物车-非凡商城</title>
+<meta name="viewport" content="width=1226">
+<link th:href="@{/css/base.min.css}" rel="stylesheet">
+<link th:href="@{/css/cart/cart.min.css}" rel="stylesheet">
+<script th:src="@{/js/jquery-2.1.1.js}"></script>
 </head>
 <body>
-	<div layout:fragment="content">
-		<div class="site-header">
-			<div class="container">
-				<div class="header-logo">
-					<a class="logo ir" href="http://www.mi.com/index.html" title="小米官网">小米官网</a>
-					<div class="doodle" style="display: block;">
-						<a class="link-block" style="background-image: url(/img/dysj3.gif)"
-							href="http://hd.mi.com/x/03021d/index.html" target="_blank"></a>
-					</div>
-				</div>
-				<div class="header-search">
-					<form id="J_searchForm" class="search-form clearfix" action="http://search.mi.com/search"
-						method="get">
-						<label for="search" class="hide">站内搜索</label>
-						<input class="search-text" type="search" id="search" name="keyword" autocomplete="off">
-						<input type="submit" class="search-btn iconfont" value="">
-					</form>
-				</div>
+	<div class="site-header site-mini-header">
+		<div class="container">
+			<div class="header-logo">
+				<a class="logo ir" href="http://www.mi.com/index.html" title="小米官网">小米官网</a>
+			</div>
+			<div class="header-title has-more" id="J_miniHeaderTitle">
+				<h2>我的购物车</h2>
+				<p>温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算</p>
+			</div>
+			<div class="topbar-info" id="J_userInfo">
+				<a class="link" th:href="@{/login}" sec:authorize="!isAuthenticated()">登录</a>
+				<span class="sep" sec:authorize="!isAuthenticated()">|</span>
+				<a class="link" th:href="@{/user/register}" sec:authorize="!isAuthenticated()">注册</a>
+
+				<span class="user" sec:authorize="isAuthenticated()">
+					<a rel="nofollow" class="user-name" href="http://my.mi.com/portal" target="_blank">
+						<span class="name" sec:authentication="name">游客</span>
+						<i class="iconfont"></i>
+					</a>
+					<ul class="user-menu">
+						<li>
+							<a rel="nofollow" href="http://my.mi.com/portal" target="_blank">个人中心</a>
+						</li>
+						<li>
+							<a rel="nofollow" href="http://order.mi.com/user/favorite" target="_blank">我的喜欢</a>
+						</li>
+						<li>
+							<a rel="nofollow" href="http://account.xiaomi.com/" target="_blank">小米账户</a>
+						</li>
+						<li>
+							<a rel="nofollow" href="#" id="logout-top">退出登录</a>
+						</li>
+					</ul>
+				</span>
+				<span class="sep" sec:authorize="isAuthenticated()">|</span>
+				<a rel="nofollow" class="link link-order" href="#" target="_blank"
+					sec:authorize="isAuthenticated()">我的订单</a>
 			</div>
 		</div>
-		<div class="page-main">
-			<div class="container">
-				<div class="buy-succ-box clearfix">
-					<div class="goods-content" id="J_goodsBox">
-						<div class="goods-img">
-							<img th:src="@{/img/success.png}" width="64" height="64">
+	</div>
+
+	<div class="page-main">
+		<div class="container">
+			<div th:if="${session.cart==null}" class="cart-empty" id="J_cartEmpty">
+				<h2>您的购物车还是空的！</h2>
+				<p class="login-desc" sec:authorize="!isAuthenticated()">登录后将显示您之前加入的商品</p>
+				<a th:href="@{/login}" class="btn btn-primary btn-login" id="J_loginBtn" sec:authorize="!isAuthenticated()">立即登录</a>
+				<a th:href="@{/}" class="btn btn-primary btn-shoping J_goShoping">马上去购物</a>
+			</div>
+			<div th:if="${session.cart!=null}" id="J_cartBox" class="">
+				<div class="cart-goods-list">
+					<div class="list-head clearfix">
+						<div class="col col-check">
+							<i class="iconfont icon-checkbox icon-checkbox-selected" id="J_selectAll">√</i>
+							全选
 						</div>
-						<div class="goods-info">
-							<h3>已成功加入购物车！</h3>
-							<span class="name" th:text="${sku.productDTO.name}"></span>
+						<div class="col col-img">&nbsp;</div>
+						<div class="col col-name">商品名称</div>
+						<div class="col col-price">单价</div>
+						<div class="col col-num">数量</div>
+						<div class="col col-total">小计</div>
+						<div class="col col-action">操作</div>
+					</div>
+					<div class="list-body" id="J_cartListBody">
+						<div th:each="cartItem,iterStat:${session.cart.cartItems}" class="item-box">
+							<div class="item-table J_cartGoods">
+								<div class="item-row clearfix">
+									<div class="col col-check">
+										<i class="iconfont icon-checkbox icon-checkbox-selected J_itemCheckbox">√</i>
+									</div>
+									<div class="col col-img">
+										<a th:href="@{/product/}+${cartItem.skuId}+'.html'" target="_blank">
+											<img alt="" th:src="${cartItem.skuPicture}" width="80" height="80">
+										</a>
+									</div>
+									<div class="col col-name">
+										<div class="tags"></div>
+										<h3 class="name">
+											<a th:href="@{/product/}+${cartItem.skuId}+'.html'" target="_blank"
+												th:text="${cartItem.skuName}"> 米家车载空气净化器 深灰色 </a>
+										</h3>
+									</div>
+									<div class="col col-price" th:text="${cartItem.skuNowPrice}">449元</div>
+									<div class="col col-num" th:text="${cartItem.count}">
+										<div class="change-goods-num clearfix J_changeGoodsNum">
+											<a href="javascript:void(0)" class="J_minus">
+												<i class="iconfont"></i>
+											</a>
+											<input type="text" name="2164700025_0_buy" value="1" autocomplete="off"
+												class="goods-num J_goodsNum">
+											<a href="javascript:void(0)" class="J_plus">
+												<i class="iconfont"></i>
+											</a>
+										</div>
+									</div>
+									<div class="col col-total" th:inline="text">
+										[[${cartItem.skuNowPrice*cartItem.count}]]
+										<p class="pre-info"></p>
+									</div>
+									<div class="col col-action">
+										<a id="2164700025_0_buy" data-msg="确定删除吗？" href="javascript:void(0);" title="删除"
+											class="del J_delGoods">
+											<i class="iconfont"></i>
+										</a>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-					<div class="actions J_actBox">
-						<p class="hide J_notic">有商品未成功加入购物车，可以在购物车中查看</p>
-						<a href="javascript:void(0);" class="btn btn-line-gray J_goBack">返回上一级</a>
-						<a href="http://static.mi.com/cart/" class="btn btn-primary">去购物车结算</a>
+				</div>
+				<div class="cart-bar clearfix" id="J_cartBar" style="margin-top: 20px;">
+					<div class="section-left">
+						<a href="http://list.mi.com/0" class="back-shopping J_goShoping">继续购物</a>
+						<span class="cart-total">
+							共
+							<i id="J_cartTotalNum" th:text="${session.cart.allCount}">3</i>
+							件商品，已选择
+							<i id="J_selTotalNum" th:text="${session.cart.allCount}">3</i>
+							件
+						</span>
+						<span class="cart-coudan hide" id="J_coudanTip">
+							，还需
+							<i id="J_postFreeBalance"></i>
+							元即可免邮费
+							<a href="javascript:void(0);" id="J_showCoudan">立即凑单</a>
+						</span>
+					</div>
+					<span class="activity-money hide">
+						活动优惠：减
+						<i id="J_cartActivityMoney">0</i>
+						元
+					</span>
+					<span class="total-price">
+						合计（不含运费）：
+						<em id="J_cartTotalPrice" th:text="${session.cart.allPrice}">1097.00</em>
+						元
+					</span>
+					<a th:href="@{/order/fillOrderMessage}" class="btn btn-a btn btn-primary" id="J_goCheckout">去结算</a>
+
+					<div class="no-select-tip hide" id="J_noSelectTip">
+						请勾选需要结算的商品
+						<i class="arrow arrow-a"></i>
+						<i class="arrow arrow-b"></i>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<div th:replace="layout/partials/footer :: footer"></div>
+	<form th:action="@{/logout}" method="post" id="logoutform"></form>
+	<script type="text/javascript">
+		$(function() {
+			$("#logout-top").click(function(event) {
+				event.preventDefault();
+				if (confirm('您确定退出吗？')) {
+					$("#logoutform").submit();
+				}
+			});
+
+			$(".user").mouseenter(function() {
+				$(this).addClass('user-active');
+				$(".user .user-menu").css("display", "block");
+			});
+			$(".user").mouseleave(function(event) {
+				$(this).removeClass('user-active');
+				$(".user .user-menu").css("display", "none");
+			});
+		});
+	</script>
 </body>
 </html>

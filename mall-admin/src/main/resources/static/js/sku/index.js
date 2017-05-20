@@ -57,8 +57,8 @@ $(function() {
 									data : "id",
 								},
 								{
-									title : "商品名称",
-									data : "productDTO.name",
+									title : "sku名称",
+									data : "name",
 									render : $.fn.dataTable.render.ellipsis(15),
 								},
 								{
