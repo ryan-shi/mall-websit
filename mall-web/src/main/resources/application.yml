@@ -27,9 +27,24 @@ spring:
   
   jmx:
     enabled: false
+  redis:
+    database: 0
+    host: 139.129.45.34
+    port: 6379
+    pool:
+      max-active: 8
+      max-wait: -1
+      max-idle: 8
+      min-idle: 0
     
 server:
   port: 9090
+  tomcat:
+    max-connections: 2000
+    max-threads: 2000
+    min-spare-threads: 50
+  connection-timeout: 5000
+  
   
 fdfs:
   soTimeout: 1501

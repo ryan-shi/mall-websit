@@ -66,10 +66,10 @@
 											</div>
 											<!-- <div class="lgncode c_b" id="captcha"></div> -->
 											<!-- 错误信息 -->
-											<div class="err_tip" id="error-outcon">
+											<div th:if="${param.error}" class="err_tip" id="error-outcon">
 												<div class="dis_box">
 													<em class="icon_error"></em>
-													<span class="error-con"></span>
+													<span class="error-con">用户名或密码错误，请重试！</span>
 												</div>
 											</div>
 											<div class="btns_bg">
