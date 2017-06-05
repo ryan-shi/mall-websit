@@ -13,7 +13,6 @@
 		<groupId>com.ryan</groupId>
 		<artifactId>mall-service</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../mall-website/mall-service</relativePath> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
