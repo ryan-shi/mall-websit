@@ -10,7 +10,7 @@
 	<dubbo:application name="ryanshi-admin-consumer" />
 
 	<!-- 使用zookeeper注册中心暴露服务地址 -->
-	<dubbo:registry protocol="zookeeper" address="139.129.45.34:2181" />
+	<dubbo:registry protocol="zookeeper" address="123.206.74.129:2181" />
 
 	<dubbo:reference id="departmentService" interface="com.ryan.service.DepartmentService" />
 	<dubbo:reference id="resourceService" interface="com.ryan.service.ResourceService" />

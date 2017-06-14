@@ -16,9 +16,7 @@ import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.core.env.Environment;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.ryan.dto.AdvertisementDTO;
@@ -44,6 +42,7 @@ public class SiteController implements ErrorController {
 	@Autowired
 	ProductService productService;
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/")
 	public String index(Model model) {
 		ValueOperations<String, String> valueOperation = stringTemplate.opsForValue();
@@ -101,6 +100,7 @@ public class SiteController implements ErrorController {
 					TimeUnit.MINUTES);
 		} else {
 			log.info("firstSeconds 从缓存中取");
+			
 			firstSeconds = (List<Map<String, Object>>)JSON.parse(firstSecondsJson);
 		}
 		model.addAttribute("firstSeconds", firstSeconds);

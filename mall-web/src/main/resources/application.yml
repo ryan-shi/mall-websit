@@ -18,7 +18,7 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
   
   thymeleaf: 
-    cache: false
+    cache: true
     mode: LEGACYHTML5
     
   http:
@@ -29,7 +29,7 @@ spring:
     enabled: false
   redis:
     database: 0
-    host: 139.129.45.34
+    host: 47.94.23.178
     port: 6379
     pool:
       max-active: 8

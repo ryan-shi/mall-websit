@@ -72,7 +72,7 @@
 					<li
 						th:classappend="${(#strings.contains(#httpServletRequest.requestURI,'/catalog/index')||#strings.contains(#httpServletRequest.requestURI,'/spec/index') ||#strings.contains(#httpServletRequest.requestURI,'/product/index')||#strings.contains(#httpServletRequest.requestURI,'/sku/index'))? 'active' : ''}">
 						<a href="#">
-							<i class="fa fa-bar-chart-o"></i>
+							<i class="fa fa-archive"></i>
 							<span class="nav-label">商品管理</span>
 							<span class="fa arrow"></span>
 						</a>
@@ -97,7 +97,28 @@
 					</li>
 					<li>
 						<a href="#">
-							<i class="fa fa-envelope"></i>
+							<i class="fa fa-group"></i>
+							<span class="nav-label">会员管理</span>
+							<span class="fa arrow"></span>
+						</a>
+						<ul class="nav nav-second-level collapse">
+							<li>
+								<a href="mailbox.html">订单管理</a>
+							</li>
+							<li>
+								<a href="mail_detail.html">Email view</a>
+							</li>
+							<li>
+								<a href="mail_compose.html">Compose email</a>
+							</li>
+							<li>
+								<a href="email_template.html">Email templates</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-shopping-cart"></i>
 							<span class="nav-label">订单管理</span>
 							<span class="fa arrow"></span>
 						</a>
@@ -119,7 +140,7 @@
 					<li
 						th:classappend="${(#strings.contains(#httpServletRequest.requestURI,'/advert/index'))? 'active' : ''}">
 						<a href="#">
-							<i class="fa fa-envelope"></i>
+							<i class="fa fa-book"></i>
 							<span class="nav-label">内容管理</span>
 							<span class="fa arrow"></span>
 						</a>
